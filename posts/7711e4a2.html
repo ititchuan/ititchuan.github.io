@@ -1,0 +1,1140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>技术研究之GStreamer</title>
+    <!-- 页面描述 -->
+<meta name="description" content=""/>
+<!-- 页面关键词 -->
+<meta name="keywords" content=""/>
+<!-- 网页作者 -->
+<meta name="author" content="bibichuan, ititchuan@gmail.com"/>
+<!-- 搜索引擎抓取 -->
+<meta name="robots" content="index,follow"/>
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+
+<!--禁止百度转码-->
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<!--启用WebApp全屏模式-->
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<!--禁止数字自动识别为电话号码-->
+<meta name="format-detection" content="telephone=no" />
+<!--忽略识别邮箱-->
+<meta name="format-detection" content="email=no" />
+<!--360强制谷歌内核-->
+<meta name="renderer" content="webkit"> 
+
+<link rel="icon" href="/images/favicon.ico">
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1022896_nclaqhxyt.css">
+
+<link href="/css/main.css" rel="stylesheet" type="text/css" />
+
+<!-- 谷歌广告 -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8382618401389723"></script>
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var BTheme = window.BTheme ||{};
+  var CONFIG = {
+    root: '/'
+  };
+</script>
+
+<!--百度统计-->
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?ee4ff785c4c68fa9a0ea17241e0574ea";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+<!--谷歌统计-->
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-G4HPTST8XX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-G4HPTST8XX');
+</script>
+
+    
+    
+        
+    
+        
+            
+            
+            <link href="/lib/layui/css/layui.css" rel="stylesheet" type="text/css" />
+        
+    
+
+    
+        
+    
+
+    
+        
+    
+
+
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.6/dist/jquery.fancybox.min.css" />
+<link rel="stylesheet" type="text/css" href="/lib/share/style/css/ishare.css">
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+<body class="main">
+
+    <header id="header" class="header layui-fluid">
+        <div class="header-inner layui-row"><div class="header-wrap">
+    <div class="logo_wrap">
+        <a href="/"><img src="/images/logo.png"></a>
+    </div>
+    <div class='search-warp'>
+  <div class="search">
+    <input class="search-ipt" placeholder="请输入搜索内容"/>
+    <div class="search-btn clear"><i class="iconfont icon-guanbi"></i></div>
+    <div class="search-btn find"><i class="iconfont icon-sousuo"></i></div>
+  </div>
+  <div class="result">
+    <ul class="result-content"></ul>
+  </div>
+</div>
+    <div class="icon-menu"><i class="iconfont icon-m_menu"></i></div>
+    <nav class="site-nav">
+        <ul class="menu layui-nav">
+            
+            
+            <li class="menu-item layui-nav-item">
+                <a href="/" rel="section">
+                    <i class="iconfont icon-home"></i>首页<i class="iconfont icon-header-mobile icon-right"></i>
+                </a>
+            </li>
+            
+            
+
+            
+            
+
+            
+            
+                
+                
+                
+                    
+                        
+                        
+                            
+                            <li class="menu-item layui-nav-item">
+                                <a href="/categories/%E6%9D%82%E6%96%87/">
+                                    杂文
+                                    <i class="iconfont icon-header-mobile icon-right"></i>
+                                </a>
+                            </li>
+                        
+                        
+                        
+                    
+                
+                    
+                        
+                        
+                            
+                            <li class="menu-item layui-nav-item">
+                                <a href="/categories/Python/">
+                                    Python
+                                    <i class="iconfont icon-header-mobile icon-right"></i>
+                                </a>
+                            </li>
+                        
+                        
+                        
+                    
+                
+                    
+                        
+                        
+                            
+                            <li class="menu-item layui-nav-item">
+                                <a href="/categories/Gis/">
+                                    Gis
+                                    <i class="iconfont icon-header-mobile icon-right"></i>
+                                </a>
+                            </li>
+                        
+                        
+                        
+                    
+                
+                    
+                        
+                        
+                            
+                            <li class="menu-item layui-nav-item">
+                                <a href="/categories/Asp/">
+                                    Asp
+                                    <i class="iconfont icon-header-mobile icon-right"></i>
+                                </a>
+                            </li>
+                        
+                        
+                        
+                    
+                
+                    
+                        
+                        
+                            
+                            <li class="menu-item layui-nav-item">
+                                <a href="/categories/%E8%BD%AF%E4%BB%B6/">
+                                    软件
+                                    <i class="iconfont icon-header-mobile icon-right"></i>
+                                </a>
+                            </li>
+                        
+                        
+                        
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                
+                <li class="more menu-item layui-nav-item">
+                    
+                    <a href="javascript:;" class="menu-more">
+                        更多分类
+                        <i class="iconfont icon-header-mobile icon-sidemenu"></i>
+                    </a>
+                    
+                    <dl class="layui-nav-child">
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                                
+                                
+                                    
+                                    <dd class="nav-child">
+                                        <a href="/categories/Java/">
+                                            Java
+                                            <i class="iconfont icon-header-mobile icon-right"></i>
+                                        </a>
+                                    </dd>
+                                
+                            
+                        
+                            
+                            
+                                
+                                
+                                    
+                                    <dd class="nav-child">
+                                        <a href="/categories/%E5%89%8D%E7%AB%AF/">
+                                            前端
+                                            <i class="iconfont icon-header-mobile icon-right"></i>
+                                        </a>
+                                    </dd>
+                                
+                            
+                        
+                            
+                            
+                                
+                                
+                                    
+                                    <dd class="nav-child">
+                                        <a href="/categories/Javascript/">
+                                            Javascript
+                                            <i class="iconfont icon-header-mobile icon-right"></i>
+                                        </a>
+                                    </dd>
+                                
+                            
+                        
+                            
+                            
+                                
+                                
+                                    
+                                    <dd class="nav-child">
+                                        <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">
+                                            数据库
+                                            <i class="iconfont icon-header-mobile icon-right"></i>
+                                        </a>
+                                    </dd>
+                                
+                            
+                        
+                            
+                            
+                                
+                                
+                                    
+                                    <dd class="nav-child">
+                                        <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
+                                            操作系统
+                                            <i class="iconfont icon-header-mobile icon-right"></i>
+                                        </a>
+                                    </dd>
+                                
+                            
+                        
+                            
+                            
+                                
+                                
+                                    
+                                    <dd class="nav-child">
+                                        <a href="/categories/Nodejs/">
+                                            Nodejs
+                                            <i class="iconfont icon-header-mobile icon-right"></i>
+                                        </a>
+                                    </dd>
+                                
+                            
+                        
+                            
+                            
+                                
+                                
+                                    
+                                    <dd class="nav-child">
+                                        <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/">
+                                            大数据
+                                            <i class="iconfont icon-header-mobile icon-right"></i>
+                                        </a>
+                                    </dd>
+                                
+                            
+                        
+                            
+                            
+                                
+                                
+                                    
+                                    <dd class="nav-child">
+                                        <a href="/categories/%E5%90%8E%E5%8F%B0%E6%9C%8D%E5%8A%A1/">
+                                            后台服务
+                                            <i class="iconfont icon-header-mobile icon-right"></i>
+                                        </a>
+                                    </dd>
+                                
+                            
+                        
+                            
+                            
+                                
+                                
+                                    
+                                    <dd class="nav-child">
+                                        <a href="/categories/%E9%9A%8F%E7%AC%94/">
+                                            随笔
+                                            <i class="iconfont icon-header-mobile icon-right"></i>
+                                        </a>
+                                    </dd>
+                                
+                            
+                        
+                            
+                            
+                                
+                                
+                                    
+                                    <dd class="nav-child">
+                                        <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">
+                                            机器学习
+                                            <i class="iconfont icon-header-mobile icon-right"></i>
+                                        </a>
+                                    </dd>
+                                
+                            
+                        
+                            
+                            
+                                
+                                
+                                    
+                                    <dd class="nav-child">
+                                        <a href="/categories/%E5%85%B6%E4%BB%96/">
+                                            其他
+                                            <i class="iconfont icon-header-mobile icon-right"></i>
+                                        </a>
+                                    </dd>
+                                
+                            
+                        
+                    </dl>
+                </li>
+            
+        </ul>
+    </nav>
+</div></div>
+    </header>
+    
+    <main class="main-content layui-fluid" id="main-content">
+      <div class="main-inner">
+        
+  <div class="layui-row layui-col-space15">
+    <div class="layui-col-xs12 layui-col-sm10 layui-col-sm-offset1 layui-col-md6 layui-col-md-offset2 layui-col-lg6 layui-col-lg-offset2">
+        <div class="container post_wrap">
+          <div class="post">
+            <div class="article">
+              <h1 class="title">技术研究之GStreamer</h1>
+              <div class="author">
+                <span class="tag">标签：
+                  
+
+                  
+                    无
+                  
+                </span>
+                <span class="tag">分类：
+                  
+
+                  
+                    未分类
+                  
+                </span>
+                <span class='tag'>
+                  创建时间：2025-07-05 07:56:41
+                </span>
+                <span class='tag'>
+                  更新时间：2025-09-26 04:44:39
+                </span>
+              </div>
+              <div class="content">
+                <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>Gstreamer是一个支持Windows，Linux，Android， iOS的跨平台的多媒体框架，应用程序可以通过管道（Pipeline）的方式，将多媒体处理的各个步骤串联起来，达到预期的效果。每个步骤通过元素（Element）基于GObject对象系统通过插件（plugins）的方式实现，方便了各项功能的扩展。</p>
+<p>参考文章:<br>【1】.<a target="_blank" rel="noopener" href="https://www.cnblogs.com/xleng/p/10948838.html">什么是Gstreamer</a></p>
+<h1 id="1-windows-安装"><a href="#1-windows-安装" class="headerlink" title="1.windows 安装"></a>1.windows 安装</h1><p>在windows上安装gstreamer，需要安装MSYS2，然后安装pygobject，如果不这样做，pygobject可能无法安装成功，反正我直接使用 pip 安装pygobject 会报错。<br>经过长时间折腾，我发现我还是没有在windows上安装配置成功 gstreamer + pygobject ,很多的东西都没有办法处理，问题是一个接着一个，到底哪里问题呢？</p>
+<h2 id="1-安装gstreamer"><a href="#1-安装gstreamer" class="headerlink" title="1.安装gstreamer"></a>1.安装gstreamer</h2><p>前往<a target="_blank" rel="noopener" href="https://gstreamer.freedesktop.org/download/">官网</a>下载相应windows版本，执行安装程序。</p>
+<h2 id="2-设置环境变量"><a href="#2-设置环境变量" class="headerlink" title="2.设置环境变量"></a>2.设置环境变量</h2><p>将 gstreamer 的bin目录添加到系统环境变量中，如：C:\Program Files\GStreamer\1.0\bin。</p>
+<h2 id="3-安装pygobject"><a href="#3-安装pygobject" class="headerlink" title="3.安装pygobject"></a>3.安装pygobject</h2><p>(1) 安装MSYS2:<br>从MSYS2官网下载 <a target="_blank" rel="noopener" href="https://www.msys2.org/">MSYS2</a> 安装程序并运行。安装过程中选择一个不包含空格和中文的安装目录。完成安装后，勾选“Run MSYS2 now”并点击“Finish”。</p>
+<p>(2) 更新MSYS2:<br>打开MSYS2终端，执行命令更新软件包列表和包管理器。如果提示需要重启MSYS2终端，请关闭并重新打开。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacman -Syu </span><br></pre></td></tr></table></figure>
+
+<p>(3) 安装PyGObject和依赖:<br>在MSYS2终端中，执行以下命令安装PyGObject和其他必要的依赖库：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacman -S mingw-w64-ucrt-x86_64-gtk4 mingw-w64-ucrt-x86_64-python3 mingw-w64-ucrt-x86_64-python3-gobject</span><br></pre></td></tr></table></figure>
+
+<p>根据提示，确认安装并等待完成。</p>
+<p>(4) 验证安装:<br>安装完成后，可以在Python脚本中导入gi模块来验证PyGObject是否安装成功。例如，创建一个名为test.py的文件，内容如下,将脚本放到 C:\msys64\home\hjkj 下，然后执行 python test.py。就可以查看一个GTK窗口。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> gi</span><br><span class="line">gi.require_version(<span class="string">&#x27;Gtk&#x27;</span>, <span class="string">&#x27;3.0&#x27;</span>)</span><br><span class="line"><span class="keyword">from</span> gi.repository <span class="keyword">import</span> Gtk</span><br><span class="line"></span><br><span class="line">win = Gtk.Window()</span><br><span class="line">win.connect(<span class="string">&quot;destroy&quot;</span>, Gtk.main_quit)</span><br><span class="line">win.show_all()</span><br><span class="line">Gtk.main()</span><br></pre></td></tr></table></figure>
+
+<p>在MSYS2终端中运行python test.py，如果能够正常显示一个GTK窗口，则说明PyGObject安装成功。</p>
+<p><strong>注意</strong></p>
+<pre><code>如果Python版本不是64位的，可能需要安装mingw-w64-i686-python-gobject。
+如果安装过程中遇到问题，可以尝试更新MSYS2或者搜索相关的错误信息。
+</code></pre>
+<p>参考文章:<br>【1】.<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/675224968">笔记： PyGObject 在 windows 上安装的曲折经历</a><br>【2】.<a target="_blank" rel="noopener" href="https://pygobject.gnome.org/getting_started.html#windows-getting-started">Getting Started</a> 这里是官方关于不同系统安装运行 pygobject 的方法。<br>【3】.<a target="_blank" rel="noopener" href="https://m.w3cschool.cn/article/27842248.html">python tar.gz怎么安装？tar.gz格式第三方库安装详解</a><br>【4】.<a target="_blank" rel="noopener" href="https://www.piwheels.org/project/pygobject/">PyGObject</a> 安装了 libxrender1 libxcb-shm0 libpixman-1-0 libcairo-gobject2 libgirepository-1.0-1 libcairo2 libxcb-render0</p>
+<h1 id="2-linux安装"><a href="#2-linux安装" class="headerlink" title="2.linux安装"></a>2.linux安装</h1><p>这里我在尝试使用UOS进行安装配置，也就是使用 yum 进行安装。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> dnf install gcc gobject-introspection-devel cairo-gobject-devel pkg-config gtk4</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用pip 安装 pygobject</span></span><br><span class="line">pip3 install pycairo</span><br><span class="line">pip3 install PyGObject</span><br></pre></td></tr></table></figure>
+
+<p>参考文章:<br>【1】.<a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_51004308/article/details/121594664">视频监控笔记(四):Ubuntu配置GStreamer实现python推流</a> 这里用的是 ubuntu 进行的开发。<br>【2】.<a target="_blank" rel="noopener" href="https://gstreamer.freedesktop.org/download/#linux">Download GStreamer</a></p>
+<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><h2 id="1-’gbk’-codec-can’t-decode-byte-0xae-in-position-7746-illegal-multibyte-sequence"><a href="#1-’gbk’-codec-can’t-decode-byte-0xae-in-position-7746-illegal-multibyte-sequence" class="headerlink" title="1.’gbk’ codec can’t decode byte 0xae in position 7746: illegal multibyte sequence"></a>1.’gbk’ codec can’t decode byte 0xae in position 7746: illegal multibyte sequence</h2><p>这是安装 pygobject 这个包的时候，在windows上报的错误。<br>【尝试方案】<br>（1）.修改安装脚本<br>结果没有找到这个文件，所以没有修改。</p>
+<p>（2）.修改环境变量<br>增加了 PYTHONIOENCODING=utf-8 这个环境变量，结果无效。</p>
+<p>【解决方案】<br>通过控制面板 -&gt; 时钟和区域 -&gt; 区域 -&gt; 更改系统区域设置 -&gt; Beta版，这个勾选上。</p>
+<p>参考文章:<br>【1】.<a target="_blank" rel="noopener" href="https://blog.csdn.net/Calistar/article/details/127790552">PIP安装第三方库报错UnicodeDecodeError: ‘gbk‘ codec can‘t decode byte 0xa4 in position 469: illegal multibyte</a> 这里是修改安装脚本进行处理<br>【2】.<a target="_blank" rel="noopener" href="https://community.scripture.software.sil.org/t/where-to-set-pythonioencoding-utf-8/3278">Where to set PYTHONIOENCODING=UTF-8? </a><br>【3】.<a target="_blank" rel="noopener" href="https://blog.csdn.net/houzhiguo/article/details/55259490">解决python3编码问题的方法</a> 在环境变量中，设置PYTHONIOENCODING=utf-8<br>【4】.<a target="_blank" rel="noopener" href="http://www.tuxingis.com/qa/1.%E8%BD%AF%E4%BB%B6%E4%B8%8B%E8%BD%BD/%E6%89%93%E5%BC%80%E5%90%8E%E4%B8%8D%E6%98%BE%E7%A4%BA%E6%96%87%E5%AD%97%E6%88%96%E4%B9%B1%E7%A0%81.html">打开后不显示文字或乱码</a> 解决关于图新地球乱码的问题，设置了系统区域选项</p>
+<h2 id="5-Dependency-‘girepository-2-0’-is-required-but-not-found"><a href="#5-Dependency-‘girepository-2-0’-is-required-but-not-found" class="headerlink" title="5.Dependency ‘girepository-2.0’ is required but not found"></a>5.Dependency ‘girepository-2.0’ is required but not found</h2><p>在 windows 上安装 pygobject 的时候，报错。</p>
+<p>【尝试方案】<br>（1）尝试清空缓存</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pip cache purge</span><br><span class="line">pip install --no-cache-dir pygobject</span><br></pre></td></tr></table></figure>
+
+<p>（2）尝试安装 CMake</p>
+<p>【解决方案】<br>安装低版本</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install pygobject==3.50.1</span><br></pre></td></tr></table></figure>
+
+<p>参考文章:<br>【1】.<a target="_blank" rel="noopener" href="https://github.com/beeware/toga/issues/3143">PyGObject&gt;=3.51.0 depends on libgirepository 2.0</a></p>
+<h2 id="6-Namespace-Gst-not-available"><a href="#6-Namespace-Gst-not-available" class="headerlink" title="6.Namespace Gst not available"></a>6.Namespace Gst not available</h2><p>在windows上安装配置了gstreamer，但是运行程序的时候，报错。</p>
+<p>【解决方案】<br>设置环境变量</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> GI_TYPELIB_PATH=C:\Program Files\gstreamer\1.0\msvc_x86_64\lib\girepository-1.0</span><br></pre></td></tr></table></figure>
+
+<h2 id="7-Could-not-locate-g-option-error-quark-‘gobject-2-0-0-dll’-找不到指定的模块。"><a href="#7-Could-not-locate-g-option-error-quark-‘gobject-2-0-0-dll’-找不到指定的模块。" class="headerlink" title="7.Could not locate g_option_error_quark: ‘gobject-2.0-0.dll’: 找不到指定的模块。"></a>7.Could not locate g_option_error_quark: ‘gobject-2.0-0.dll’: 找不到指定的模块。</h2><p>【解决方案】<br>重新安装 gstreamer，然后设置环境变量,换到了一个没有空格的目录下，然后设置环境变量</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> GI_TYPELIB_PATH=/c/gstreamer/1.0/msvc_x86_64/lib/girepository-1.0</span><br><span class="line"><span class="built_in">export</span> PATH=/c/gstreamer/1.0/msvc_x86_64/bin:<span class="variable">$PATH</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="8-unable-to-create-a-wrapper-for-GLib-Error"><a href="#8-unable-to-create-a-wrapper-for-GLib-Error" class="headerlink" title="8.unable to create a wrapper for GLib.Error"></a>8.unable to create a wrapper for GLib.Error</h2><p>在 MSYS2 UCRT64 环境下，安装 pygobject 时报错。<br>【尝试方案】<br>（1）尝试安装依赖，无效</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pacman -Sy mingw-w64-ucrt-x86_64-glib2 \</span><br><span class="line">         mingw-w64-ucrt-x86_64-gstreamer \</span><br><span class="line">         mingw-w64-ucrt-x86_64-gst-plugins-base</span><br></pre></td></tr></table></figure>
+
+<p>（2）尝试设置环境变量，无效</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> GST_PLUGIN_PATH=/c/gstreamer/1.0/msvc_x86_64/lib/gstreamer-1.0</span><br></pre></td></tr></table></figure>
+
+<p>（3）尝试设置环境变量，无效</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> PATH=C:\gstreamer\1.0\msvc_x86_64\bin;%PATH%</span><br><span class="line"><span class="built_in">set</span> GI_TYPELIB_PATH=C:\gstreamer\1.0\msvc_x86_64\lib\girepository-1.0</span><br></pre></td></tr></table></figure>
+
+<h2 id="9-Dependency-‘gobject-introspection-1-0’-is-required-but-not-found"><a href="#9-Dependency-‘gobject-introspection-1-0’-is-required-but-not-found" class="headerlink" title="9.Dependency ‘gobject-introspection-1.0’ is required but not found."></a>9.Dependency ‘gobject-introspection-1.0’ is required but not found.</h2><p>从 2.0 降级到 1.0，我又遇到了新的问题。</p>
+<p>【尝试方案】<br>（1）尝试安装 3.42.2 版本，结果报错：gi\gimodule.c: fatal error C1083: 无法打开包括文件: “msvc_recommended_pragmas.h”: No such file or directory</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install pygobject==3.42.2</span><br></pre></td></tr></table></figure>
+
+<p>参考文章:<br>【1】.<a target="_blank" rel="noopener" href="https://blog.csdn.net/quantum7/article/details/124236341">No package ‘gobject-introspection-1.0‘ found</a></p>
+              </div>
+            </div>
+          </div>
+          <div class='post-footer'>
+            <div>**本文已结束，感谢您的观看**</div>
+            <div class="btn btn-pay">鼓励一下</div>
+          </div>
+          
+            <div class="page">
+              
+              <section class="past-wrap">
+                <section class="past">
+                <p>往期推荐</p>
+                </section>
+              </section>
+              <div class="post-nav">
+                <div class="post-nav-next post-nav-item">
+                  
+                    <a href="/posts/659616a8.html" rel="next" title="旅游日记之湖州">
+                      <i class="iconfont icon-prev"></i> 旅游日记之湖州
+                    </a>
+                  
+                </div>
+
+                <span class="post-nav-divider"></span>
+
+                <div class="post-nav-prev post-nav-item">
+                  
+                    <a href="/posts/2bf7db30.html" rel="prev" title="技术研究之遥感图像识别">
+                      技术研究之遥感图像识别 <i class="iconfont icon-next"></i>
+                    </a>
+                  
+                </div>
+              </div>
+            </div>
+          
+          
+ <div class="comments" id="comments">
+    <div id="disqus_thread">
+        <noscript>
+            不支持Javascript,那你还上啥网啊。
+            <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript"></a>
+        </noscript>
+    </div>
+</div>
+
+      </div>
+    </div>
+
+
+    <div class="layui-col-md2 layui-col-lg2 layui-col-sm10 layui-col-xs12 catalogue-wrap">
+        
+
+<div class="catalogue-content">
+    <div class="title">文章目录</div>
+    <div class="toc-content">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1-windows-%E5%AE%89%E8%A3%85"><span class="toc-number">2.</span> <span class="toc-text">1.windows 安装</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%AE%89%E8%A3%85gstreamer"><span class="toc-number">2.1.</span> <span class="toc-text">1.安装gstreamer</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E8%AE%BE%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-number">2.2.</span> <span class="toc-text">2.设置环境变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%AE%89%E8%A3%85pygobject"><span class="toc-number">2.3.</span> <span class="toc-text">3.安装pygobject</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-linux%E5%AE%89%E8%A3%85"><span class="toc-number">3.</span> <span class="toc-text">2.linux安装</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%97%AE%E9%A2%98"><span class="toc-number">4.</span> <span class="toc-text">问题</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E2%80%99gbk%E2%80%99-codec-can%E2%80%99t-decode-byte-0xae-in-position-7746-illegal-multibyte-sequence"><span class="toc-number">4.1.</span> <span class="toc-text">1.’gbk’ codec can’t decode byte 0xae in position 7746: illegal multibyte sequence</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-Dependency-%E2%80%98girepository-2-0%E2%80%99-is-required-but-not-found"><span class="toc-number">4.2.</span> <span class="toc-text">5.Dependency ‘girepository-2.0’ is required but not found</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-Namespace-Gst-not-available"><span class="toc-number">4.3.</span> <span class="toc-text">6.Namespace Gst not available</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-Could-not-locate-g-option-error-quark-%E2%80%98gobject-2-0-0-dll%E2%80%99-%E6%89%BE%E4%B8%8D%E5%88%B0%E6%8C%87%E5%AE%9A%E7%9A%84%E6%A8%A1%E5%9D%97%E3%80%82"><span class="toc-number">4.4.</span> <span class="toc-text">7.Could not locate g_option_error_quark: ‘gobject-2.0-0.dll’: 找不到指定的模块。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-unable-to-create-a-wrapper-for-GLib-Error"><span class="toc-number">4.5.</span> <span class="toc-text">8.unable to create a wrapper for GLib.Error</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-Dependency-%E2%80%98gobject-introspection-1-0%E2%80%99-is-required-but-not-found"><span class="toc-number">4.6.</span> <span class="toc-text">9.Dependency ‘gobject-introspection-1.0’ is required but not found.</span></a></li></ol></li></ol>
+    </div>
+</div>
+
+
+        <div class="sidecontent">
+
+    
+
+    <div class="side-panel side-sponsor">
+        <div class="side-title one">小额赞助</div>
+        <div class="side-content-wrap">
+            <div class="side-content">
+                <div class="heading">本人提供免费与付费咨询服务，感谢您的支持！赞助请发邮件（ititchuan@gmail.com）通知，方便公布您的善意！</div>
+                <div class="content">
+                    <img src="/images/pay.png" title="小额赞助"/>
+                </div>
+                
+                
+                <div class="donor_content">
+                    
+                        
+                        <div class="donor-item">
+                            <span class="name">**光</span>
+                            <span class="money">3.01 元</span>
+                        </div>
+                    
+                        
+                        <div class="donor-item">
+                            <span class="name">Sun</span>
+                            <span class="money">3.00 元</span>
+                        </div>
+                    
+                        
+                        <div class="donor-item">
+                            <span class="name">ititchuan</span>
+                            <span class="money">3.00 元</span>
+                        </div>
+                    
+                    <div class="donor_footer">
+                        <span>捐赠者名单</span>
+                        <span class="total">合计：9.01 元</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="side-ad side-panel">
+        <div class="side-title two">微信公众号</div>
+        <div class="side-content-wrap">
+            <div class="side-content">
+                <img src="/images/wechat.png" title="公众号"/>
+            </div>
+        </div>
+    </div>
+
+    <div class="side-ad side-panel">
+        <div class="side-title one">广告位</div>
+        <div class="side-content-wrap">
+            <div class="side-content">
+                <div class="heading">诚心邀请广大金主爸爸洽谈合作</div>
+                <div class="detail">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="side-ask side-panel">
+        
+        <div class="side-title two">每日一省</div>
+        <div class="side-content-wrap">
+            <div class="side-content">
+                <div class="heading">isNaN 和 Number.isNaN 函数的区别？</div>
+                <div class="detail">
+                    
+                        <p>1.函数 isNaN 接收参数后，会尝试将这个参数转换为数值，任何不能被转换为数值的的值都会返回 true，因此非数字值传入也会返回 true ，会影响 NaN 的判断。</p>
+                    
+                        <p>2.函数 Number.isNaN 会首先判断传入参数是否为数字，如果是数字再继续判断是否为 NaN ，不会进行数据类型的转换，这种方法对于 NaN 的判断更为准确。</p>
+                    
+                </div>
+            </div>
+            <div class="side-footer">
+                <span class="side-footer-item time">2021-04-07</span>
+                
+                    <span class="side-footer-item side-button down" title="查看答案">
+                        <i class="iconfont icon-expansion"></i>
+                    </span>
+                
+                
+                    <a class="side-footer-item side-button answer-url" href="https://juejin.cn/post/6940945178899251230"
+                    target="_blank">链接地址</a>
+                
+            </div>
+        </div>
+    </div>
+    <div class="side-ask side-panel">
+        
+        <div class="side-title three">每日二省</div>
+        <div class="side-content-wrap">
+            <div class="side-content">
+                <div class="heading">为什么0.1+0.2 ! == 0.3，如何让其相等?</div>
+                <div class="detail">
+                     
+                        <p>一个直接的解决方法就是设置一个误差范围，通常称为“机器精度”。对JavaScript来说，这个值通常为2-52，在ES6中，提供了Number.EPSILON属性，而它的值就是2-52，只要判断0.1+0.2-0.3是否小于Number.EPSILON，如果小于，就可以判断为0.1+0.2 ===0.3。</p>
+                    
+                </div>
+            </div>
+            <div class="side-footer">
+                <span class="side-footer-item time">2021-04-07</span>
+                
+                    <span class="side-footer-item side-button down" title="查看答案">
+                        <i class="iconfont icon-expansion"></i>
+                    </span>
+                
+                
+                    <a class="side-footer-item side-button answer-url" href="https://juejin.cn/post/6940945178899251230#heading-8"
+                    target="_blank">链接地址</a>
+                
+            </div>
+        </div>
+    </div>
+    <div class="side-ask side-panel">
+        
+        <div class="side-title three">每日三省</div>
+        <div class="side-content-wrap">
+            <div class="side-content">
+                <div class="heading">== 操作符的强制类型转换规则？</div>
+                <div class="detail">
+                     
+                        <p>1.首先会判断两者类型是否**相同，**相同的话就比较两者的大小。</p>
+                    
+                        <p>2.类型不相同的话，就会进行类型转换。</p>
+                    
+                        <p>3.会先判断是否在对比 null 和 undefined，是的话就会返回 true。</p>
+                    
+                        <p>4.判断两者类型是否为 string 和 number，是的话就会将字符串转换为 number。</p>
+                    
+                        <p>5.判断其中一方是否为 boolean，是的话就会把 boolean 转为 number 再进行判断。</p>
+                    
+                        <p>6.判断其中一方是否为 object 且另一方为 string、number 或者 symbol，是的话就会把 object 转为原始类型再进行判断。</p>
+                    
+                </div>
+            </div>
+            <div class="side-footer">
+                <span class="side-footer-item time">2021-04-07</span>
+                
+                    <span class="side-footer-item side-button down" title="查看答案">
+                        <i class="iconfont icon-expansion"></i>
+                    </span>
+                
+                
+                    <a class="side-footer-item side-button answer-url" href="https://juejin.cn/post/6940945178899251230#heading-12"
+                    target="_blank">链接地址</a>
+                
+            </div>
+        </div>
+    </div>
+    <div class="side-ask side-panel">
+        
+        <div class="side-title two">每日英语</div>
+        <div class="side-content-wrap">
+            <div class="side-content">
+                <div class="heading">Happiness is time precipitation, smile is the lonely sad.</div>
+                <div class="detail">幸福是年华的沉淀，微笑是寂寞的悲伤。</div>
+            </div>
+            <div class="side-footer">
+                <span class="side-footer-item time">2016</span>
+                
+                    <span class="side-footer-item side-button down" title="查看翻译">
+                        <i class="iconfont icon-expansion"></i>
+                    </span>
+                
+                <span class="side-footer-item author">——— 美文</span>
+            </div>
+        </div>
+    </div>
+
+</div>
+    </div>
+
+  </div>
+  <div class="side-tool">
+    <div class="side-icon-wrap">
+        <i class="iconfont icon-sidemenu"></i>
+    </div>
+    <ul class="side-tool-content">
+        <li title="回到顶部" class="back-to-top side-tool-item">
+            <a class="function-button"><i class="iconfont icon-backtop"></i></a>
+        </li> 
+        <li title="分享文章" class="side-share side-tool-item">
+            <a class="function-button"><i class="iconfont icon-share"></i></a>
+            <div class="iShare iShare-content"></div>
+        </li>
+        <li title="喜欢文章" class="side-like side-tool-item">
+            <a class="function-button"><i class="iconfont icon-like"></i></a>
+        </li>
+         <li class="side-close" title="关闭侧边栏">
+            <a class="function-button"><i class="iconfont icon-close"></i></a>
+        </li>
+    </ul>
+</div>
+
+      </div>
+    </main>   
+    
+    <footer id="footer" class="footer layui-fluid">
+      <div class="layui-row">
+        <div class="container footer-inner">
+          <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="footer-col">
+  <div>温馨提示</div>
+  <div><a href="/about" target="_self">关于作者</a></div>
+  <div><a href="/archives">博客归档</a></div>
+  <div>
+    <span id="busuanzi_container_site_uv">
+      访客数<span id="busuanzi_value_site_uv"></span>人次
+    </span>
+  </div>
+</div>
+<div class="footer-col">
+  <div>友情链接</div>
+  
+  
+  
+  
+    
+        <div><a href="https://malagis.com" target="_blank">麻辣GIS</a></div>
+    
+  
+    
+        <div><a href="https://www.giserdqy.com" target="_blank">GIS开发者</a></div>
+    
+  
+    
+        <div><a href="https://earth.nullschool.net/zh-cn/" target="_blank">earth.nullschool</a></div>
+    
+  
+    
+        <div><a href="https://www.gisclouder.com/" target="_blank">码上GIS实现的热力图</a></div>
+    
+  
+    
+        <div><a href="http://www.cnblogs.com/naaoveGIS/" target="_blank">李晓辉的博客园</a></div>
+    
+  
+    
+        
+          <div><a href="/links">更多</a></div>
+          
+        
+    
+  
+    
+        
+    
+  
+    
+        
+    
+  
+    
+        
+    
+  
+  <div class="chain-msg">**注意：以上网站都没给钱**</div>
+</div>
+<div class="footer-col">
+  <div>精彩推荐</div>
+  
+    <div><a href="/study">励志</a></div>
+  
+    <div><a href="/anime">动漫</a></div>
+  
+    <div><a href="/movie">电影</a></div>
+  
+    <div><a href="/tv">电视</a></div>
+  
+    <div><a href="/book">书籍</a></div>
+  
+</div>
+<div class="footer-col">
+  <div>开源项目</div>
+  
+    <div><a href="/"></a></div>
+  
+</div>
+          
+        </div>
+      </div>
+    </footer>
+
+    
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+    
+        
+            
+            
+            <script type="text/javascript" src="/lib/layui/layui.js"></script>
+        
+    
+        
+    
+
+    
+        
+            
+            
+                
+            
+            <script type="text/javascript" src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js"></script>
+        
+    
+
+    
+        
+            
+            
+            <script type="text/javascript" src="/lib/jquery.actual.min.js"></script>
+        
+    
+
+
+    
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v="></script>
+
+
+
+    
+      <script type="text/javascript" src="https://cdn.jsdelivr.net/algoliasearch/3/algoliasearchLite.min.js"></script>
+<script type="text/javascript">
+  var client = algoliasearch('DM9LMZOGZE', '1c2739694b8acb4c4edab8ccb098d166');
+  var index = client.initIndex('ititchuan');
+  $(document).ready(function(){
+    var $search=$(".header-wrap");
+    var $searchbtn= $search.find(".find");
+    var $ipt=$search.find(".search-ipt");
+    var $resultClear=$search.find(".clear");
+    var $result=$search.find(".result");
+    // 加入layui
+    layui.use('layer', function(){
+      var layer = layui.layer;
+      // 搜索按钮点击
+      $searchbtn.on("click",function(){
+        var text=$ipt.val();
+        var $this=$(this);
+        var $resultContent=$result.find(".result-content");
+        if(text){
+          var loadDialog=layer.load();
+          if(!$this.hasClass("disabled")){
+            $this.addClass("disabled");
+            index.search(text, (err, { hits } = {}) => {
+              layer.close(loadDialog); 
+
+              $this.removeClass("disabled");
+              var resultHtml="";
+              // 命中
+              if(hits.length>0){
+                var count=hits.length;
+                for(var i=0;i<count;i++){
+                  var h=hits[i];
+                  //根据返回值中_highlightResult来判断显示的内容。
+                  var content=h.contentStripTruncate;
+                  var _highlight=h._highlightResult;
+
+                  var resultC="";
+                  var hitType=""; // 命中的类型
+                  //标题命中
+                  if(_highlight.title&&!resultC){  
+                    if(_highlight.title.matchLevel&&_highlight.title.matchLevel!='none'){
+                      resultC=_highlight.title.value;
+                      hitType="title";
+                    }
+                  }
+                  //分类命中
+                  if(_highlight.categories&&!resultC){ 
+                    var arr=_highlight.categories;
+                    if(arr instanceof Array){
+                      var countTemp=arr.length;
+                      for(var j=0;j<countTemp;j++){
+                        var temp=arr[j];
+                        if(temp.matchLevel&&temp.matchLevel!='none'){
+                          resultC=temp.value;
+                          hitType="categories";
+                        }
+                      }
+                    }else{
+                      if(arr.matchLevel&&arr.matchLevel!='none'){
+                        resultC=arr.value;
+                        hitType="categories";
+                      }
+                    }
+                  }
+
+                  //标签命中
+                  if(_highlight.tags&&!resultC){ 
+                    var arr=_highlight.tags;
+                    if(arr instanceof Array){
+                      var countTemp=arr.length;
+                      for(var j=0;j<countTemp;j++){
+                        var temp=arr[j];
+                        if(temp.matchLevel&&temp.matchLevel!='none'){
+                          resultC=temp.value;
+                          hitType="tags";
+                        }
+                      }
+                    }else{
+                      if(arr.matchLevel&&arr.matchLevel!='none'){
+                        resultC=arr.value;
+                        hitType="tags";
+                      }
+                    }
+                  }
+
+                  // 内容命中
+                  if(!resultC){ 
+                    resultC=_highlight.contentStripTruncate.value;
+                    hitType="contentStripTruncate";
+                  }
+
+                  //如果内容过长，则截断
+                  if(resultC.length>50){
+                    var index=resultC.indexOf('<em>');
+                    var blockIndex=10;
+                    if(index>=blockIndex){
+                      index=index-blockIndex;
+                    }else{
+                      index=0;
+                    }
+                    resultC="..."+resultC.substring(index,index+20+blockIndex)+"...";
+                  }
+                  switch(hitType){
+                    case "title":
+                      resultC="标题："+resultC;
+                      break;
+                    case "categories":
+                      resultC="分类："+resultC;
+                      resultC+=" ("+h.contentStripTruncate.substring(0,40)+"...)";
+                      break;
+                    case "tags":
+                      resultC="标签："+resultC;
+                      resultC+=" ("+h.contentStripTruncate.substring(0,40)+"...)";
+                      break;
+                    case "contentStripTruncate":
+                      resultC="内容："+resultC;
+                      break;
+                  }
+
+                  resultHtml+='<li class="result-item" title="'+content+'"><a href="'+h.permalink+'">'+resultC+'</a></li>';
+                }
+                $(resultHtml).appendTo($resultContent.empty());
+                $result.show();
+                $resultClear.show();
+              }else{
+                var resultHtml='<li class="result-item" title="未找到相关内容"><a>未找到相关内容</a></li>';
+                $(resultHtml).appendTo($resultContent.empty());
+                $result.show();
+                $resultClear.show();
+              }
+            });
+          }
+        }else{
+          layer.msg("请输入搜索内容");
+        }
+      });
+      // 删除输入内容
+      $resultClear.on("click",function(){
+        $result.hide();
+        $resultClear.hide();
+        //清空输入内容
+        $ipt.val("");
+      });
+      // 监听确定事件
+      $ipt.keydown(function(e){
+        if(e.keyCode==13){
+          $searchbtn.click();
+        }
+      });
+    });              
+  
+  });
+</script>
+    
+
+    
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.6/dist/jquery.fancybox.min.js"></script>
+<script src="/js/src/post/post.js">></script>
+
+  
+
+  <script type="text/javascript">
+    var disqus_config = function () {
+      this.page.url = 'https://ititchuan.github.io/posts/7711e4a2.html';
+      this.page.identifier = 'posts/7711e4a2.html';
+      this.page.title = '技术研究之GStreamer';
+      };
+    // 加载评论内容
+    function loadComments () {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://https-bibichuan-github-io.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+
+      // 隐藏相关文章
+      s.onload = function () {
+        var relatedCommon=$('#comments #disqus_recommendations');
+        if(relatedCommon){
+          relatedCommon.hide();
+        }
+
+      }
+    }
+    function scrollFunction(){
+      // offsetTop may changes because of manually resizing browser window or lazy loading images.
+          var offsetTop = $('#comments').offset().top - $(window).height();
+          var scrollTop = $(window).scrollTop();
+
+          // pre-load comments a bit? (margin or anything else)
+          if (offsetTop - scrollTop < 60) {
+            $(window).off('scroll',scrollFunction);
+            loadComments();
+          }
+    }
+    $(function () {
+      if($("#comments").length<=0){
+        return;
+      }
+      var offsetTop = $('#comments').offset().top - $(window).height();
+      if (offsetTop <= 0) {
+        // load directly when there's no a scrollbar
+        loadComments();
+      } else {
+        $(window).on('scroll', scrollFunction);
+      }
+    });
+  </script>
+
+
+
+<script src="/lib/share/iShare.js"></script>
+<script type="text/javascript">
+var iSharel=(new iShare({container:'.iShare-content',config:{
+		title: '这里有精彩的内容，你确定不过来看看吗？链接标题：技术研究之GStreamer 链接地址:https://ititchuan.github.io/posts/7711e4a2.html  |(复制此地址在浏览器中打开)——bibichaun出品。',
+		description: '技术研究之GStreamer',
+		url: 'https://ititchuan.github.io/posts/7711e4a2.html',
+		isAbroad: false,
+		isTitle: true,
+		initialized: true,
+		WXoptions:{
+			evenType: 'click',
+			isTitleVisibility: true,
+			title: '技术研究之GStreamer',
+			isTipVisibility: true,
+			tip: '技术研究之GStreamer',
+			qrcodeW: '120',
+			qrcodeH: '120',
+			qrcodeFgc: '#4a148c',
+      bgcolor: '#2BAD13'
+		}
+	}}));
+</script>
+
+
+</body>
+</html>
