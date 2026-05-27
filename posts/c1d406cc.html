@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>技术研究之相机标定</title>
+    <!-- 页面描述 -->
+<meta name="description" content=""/>
+<!-- 页面关键词 -->
+<meta name="keywords" content=""/>
+<!-- 网页作者 -->
+<meta name="author" content="bibichuan, ititchuan@gmail.com"/>
+<!-- 搜索引擎抓取 -->
+<meta name="robots" content="index,follow"/>
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+
+<!--禁止百度转码-->
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<!--启用WebApp全屏模式-->
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<!--禁止数字自动识别为电话号码-->
+<meta name="format-detection" content="telephone=no" />
+<!--忽略识别邮箱-->
+<meta name="format-detection" content="email=no" />
+<!--360强制谷歌内核-->
+<meta name="renderer" content="webkit"> 
+
+<link rel="icon" href="/images/favicon.ico">
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1022896_nclaqhxyt.css">
+
+<link href="/css/main.css" rel="stylesheet" type="text/css" />
+
+<!-- 谷歌广告 -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8382618401389723"></script>
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var BTheme = window.BTheme ||{};
+  var CONFIG = {
+    root: '/'
+  };
+</script>
+
+<!--百度统计-->
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?ee4ff785c4c68fa9a0ea17241e0574ea";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+<!--谷歌统计-->
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-G4HPTST8XX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-G4HPTST8XX');
+</script>
+
+    
+    
+        
+    
+        
+            
+            
+            <link href="/lib/layui/css/layui.css" rel="stylesheet" type="text/css" />
+        
+    
+
+    
+        
+    
+
+    
+        
+    
+
+
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.6/dist/jquery.fancybox.min.css" />
+<link rel="stylesheet" type="text/css" href="/lib/share/style/css/ishare.css">
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+<body class="main">
+
+    <header id="header" class="header layui-fluid">
+        <div class="header-inner layui-row"><div class="header-wrap">
+    <div class="logo_wrap">
+        <a href="/"><img src="/images/logo.png"></a>
+    </div>
+    <div class='search-warp'>
+  <div class="search">
+    <input class="search-ipt" placeholder="请输入搜索内容"/>
+    <div class="search-btn clear"><i class="iconfont icon-guanbi"></i></div>
+    <div class="search-btn find"><i class="iconfont icon-sousuo"></i></div>
+  </div>
+  <div class="result">
+    <ul class="result-content"></ul>
+  </div>
+</div>
+    <div class="icon-menu"><i class="iconfont icon-m_menu"></i></div>
+    <nav class="site-nav">
+        <ul class="menu layui-nav">
+            
+            
+            <li class="menu-item layui-nav-item">
+                <a href="/" rel="section">
+                    <i class="iconfont icon-home"></i>首页<i class="iconfont icon-header-mobile icon-right"></i>
+                </a>
+            </li>
+            
+            
+
+            
+            
+
+            
+            
+                
+                
+                
+                    
+                        
+                        
+                            
+                            <li class="menu-item layui-nav-item">
+                                <a href="/categories/%E6%9D%82%E6%96%87/">
+                                    杂文
+                                    <i class="iconfont icon-header-mobile icon-right"></i>
+                                </a>
+                            </li>
+                        
+                        
+                        
+                    
+                
+                    
+                        
+                        
+                            
+                            <li class="menu-item layui-nav-item">
+                                <a href="/categories/Python/">
+                                    Python
+                                    <i class="iconfont icon-header-mobile icon-right"></i>
+                                </a>
+                            </li>
+                        
+                        
+                        
+                    
+                
+                    
+                        
+                        
+                            
+                            <li class="menu-item layui-nav-item">
+                                <a href="/categories/Gis/">
+                                    Gis
+                                    <i class="iconfont icon-header-mobile icon-right"></i>
+                                </a>
+                            </li>
+                        
+                        
+                        
+                    
+                
+                    
+                        
+                        
+                            
+                            <li class="menu-item layui-nav-item">
+                                <a href="/categories/Asp/">
+                                    Asp
+                                    <i class="iconfont icon-header-mobile icon-right"></i>
+                                </a>
+                            </li>
+                        
+                        
+                        
+                    
+                
+                    
+                        
+                        
+                            
+                            <li class="menu-item layui-nav-item">
+                                <a href="/categories/%E8%BD%AF%E4%BB%B6/">
+                                    软件
+                                    <i class="iconfont icon-header-mobile icon-right"></i>
+                                </a>
+                            </li>
+                        
+                        
+                        
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                
+                <li class="more menu-item layui-nav-item">
+                    
+                    <a href="javascript:;" class="menu-more">
+                        更多分类
+                        <i class="iconfont icon-header-mobile icon-sidemenu"></i>
+                    </a>
+                    
+                    <dl class="layui-nav-child">
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                                
+                                
+                                    
+                                    <dd class="nav-child">
+                                        <a href="/categories/Java/">
+                                            Java
+                                            <i class="iconfont icon-header-mobile icon-right"></i>
+                                        </a>
+                                    </dd>
+                                
+                            
+                        
+                            
+                            
+                                
+                                
+                                    
+                                    <dd class="nav-child">
+                                        <a href="/categories/%E5%89%8D%E7%AB%AF/">
+                                            前端
+                                            <i class="iconfont icon-header-mobile icon-right"></i>
+                                        </a>
+                                    </dd>
+                                
+                            
+                        
+                            
+                            
+                                
+                                
+                                    
+                                    <dd class="nav-child">
+                                        <a href="/categories/Javascript/">
+                                            Javascript
+                                            <i class="iconfont icon-header-mobile icon-right"></i>
+                                        </a>
+                                    </dd>
+                                
+                            
+                        
+                            
+                            
+                                
+                                
+                                    
+                                    <dd class="nav-child">
+                                        <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">
+                                            数据库
+                                            <i class="iconfont icon-header-mobile icon-right"></i>
+                                        </a>
+                                    </dd>
+                                
+                            
+                        
+                            
+                            
+                                
+                                
+                                    
+                                    <dd class="nav-child">
+                                        <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
+                                            操作系统
+                                            <i class="iconfont icon-header-mobile icon-right"></i>
+                                        </a>
+                                    </dd>
+                                
+                            
+                        
+                            
+                            
+                                
+                                
+                                    
+                                    <dd class="nav-child">
+                                        <a href="/categories/Nodejs/">
+                                            Nodejs
+                                            <i class="iconfont icon-header-mobile icon-right"></i>
+                                        </a>
+                                    </dd>
+                                
+                            
+                        
+                            
+                            
+                                
+                                
+                                    
+                                    <dd class="nav-child">
+                                        <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/">
+                                            大数据
+                                            <i class="iconfont icon-header-mobile icon-right"></i>
+                                        </a>
+                                    </dd>
+                                
+                            
+                        
+                            
+                            
+                                
+                                
+                                    
+                                    <dd class="nav-child">
+                                        <a href="/categories/%E5%90%8E%E5%8F%B0%E6%9C%8D%E5%8A%A1/">
+                                            后台服务
+                                            <i class="iconfont icon-header-mobile icon-right"></i>
+                                        </a>
+                                    </dd>
+                                
+                            
+                        
+                            
+                            
+                                
+                                
+                                    
+                                    <dd class="nav-child">
+                                        <a href="/categories/%E9%9A%8F%E7%AC%94/">
+                                            随笔
+                                            <i class="iconfont icon-header-mobile icon-right"></i>
+                                        </a>
+                                    </dd>
+                                
+                            
+                        
+                            
+                            
+                                
+                                
+                                    
+                                    <dd class="nav-child">
+                                        <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">
+                                            机器学习
+                                            <i class="iconfont icon-header-mobile icon-right"></i>
+                                        </a>
+                                    </dd>
+                                
+                            
+                        
+                            
+                            
+                                
+                                
+                                    
+                                    <dd class="nav-child">
+                                        <a href="/categories/%E5%85%B6%E4%BB%96/">
+                                            其他
+                                            <i class="iconfont icon-header-mobile icon-right"></i>
+                                        </a>
+                                    </dd>
+                                
+                            
+                        
+                    </dl>
+                </li>
+            
+        </ul>
+    </nav>
+</div></div>
+    </header>
+    
+    <main class="main-content layui-fluid" id="main-content">
+      <div class="main-inner">
+        
+  <div class="layui-row layui-col-space15">
+    <div class="layui-col-xs12 layui-col-sm10 layui-col-sm-offset1 layui-col-md6 layui-col-md-offset2 layui-col-lg6 layui-col-lg-offset2">
+        <div class="container post_wrap">
+          <div class="post">
+            <div class="article">
+              <h1 class="title">技术研究之相机标定</h1>
+              <div class="author">
+                <span class="tag">标签：
+                  
+
+                  
+                    无
+                  
+                </span>
+                <span class="tag">分类：
+                  
+
+                  
+                    未分类
+                  
+                </span>
+                <span class='tag'>
+                  创建时间：2025-12-16 03:00:43
+                </span>
+                <span class='tag'>
+                  更新时间：2026-05-27 11:42:29
+                </span>
+              </div>
+              <div class="content">
+                <html><head></head><body><h1 id="1-前言"><a href="#1-前言" class="headerlink" title="1.前言"></a>1.前言</h1><p>做相机标定的主要作用就是获取相机的内参和外参，标定完成之后，可以将无人机的图像贴合到</p>
+<div class="reference">参考文章:<br>【1】.<a target="_blank" rel="noopener" href="https://calib.io/zh/pages/camera-calibration-pattern-generator">模式发生器 </a> 相机标定板<br>【2】.<a target="_blank" rel="noopener" href="https://repair.dji.com/help/content?customId=zh-cn03400006473&amp;spaceId=34&amp;re=CN&amp;lang=zh-CN">航拍无人机视觉校准操作指南 </a> 这个没有啥用<br>【3】.<a target="_blank" rel="noopener" href="https://blog.csdn.net/sinat_16643223/article/details/137153268">一个可以在线生成棋盘格或者标定板的网站</a></div>
+<h1 id="2-棋盘标定"><a href="#2-棋盘标定" class="headerlink" title="2.棋盘标定"></a>2.棋盘标定</h1><ul>
+<li>准备标定板：打印标准棋盘格图案</li>
+<li>多角度拍摄：从不同角度拍摄10-20张照片</li>
+<li>角点检测：软件自动检测棋盘格角点</li>
+<li>参数计算：通过算法计算相机参数</li>
+<li>精度验证：评估标定精度</li>
+</ul>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="comment"># 准备棋盘格参数</span></span><br><span class="line">pattern_size = (<span class="number">9</span>, <span class="number">6</span>)  <span class="comment"># 9×6的棋盘格</span></span><br><span class="line">square_size = <span class="number">25</span>       <span class="comment"># 方格大小25mm</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 存储角点坐标</span></span><br><span class="line">obj_points = []  <span class="comment"># 世界坐标系中的3D点</span></span><br><span class="line">img_points = []  <span class="comment"># 图像坐标系中的2D点</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 读取标定图像</span></span><br><span class="line">images = [<span class="string">'calib1.jpg'</span>, <span class="string">'calib2.jpg'</span>, ...]</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> img_file <span class="keyword">in</span> images:</span><br><span class="line">    img = cv2.imread(img_file)</span><br><span class="line">    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 查找棋盘格角点</span></span><br><span class="line">    ret, corners = cv2.findChessboardCorners(gray, pattern_size)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> ret:</span><br><span class="line">        obj_points.append(objp)  <span class="comment"># 添加世界坐标点</span></span><br><span class="line">        img_points.append(corners)  <span class="comment"># 添加图像坐标点</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 可视化角点</span></span><br><span class="line">        cv2.drawChessboardCorners(img, pattern_size, corners, ret)</span><br><span class="line">        cv2.imshow(<span class="string">'Corners'</span>, img)</span><br><span class="line">        cv2.waitKey(<span class="number">500</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 执行标定</span></span><br><span class="line">ret, mtx, dist, rvecs, tvecs = cv2.calibrateCamera(</span><br><span class="line">    obj_points, img_points, gray.shape[::-<span class="number">1</span>], <span class="literal">None</span>, <span class="literal">None</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">"相机内参矩阵:"</span>)</span><br><span class="line"><span class="built_in">print</span>(mtx)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">"畸变系数:"</span>)</span><br><span class="line"><span class="built_in">print</span>(dist)</span><br></pre></td></tr></tbody></table></figure>
+
+<div class="reference">参考文章:<br>【1】.<a target="_blank" rel="noopener" href="https://blog.csdn.net/zhuoqingjoking97298/article/details/122266415">利用棋盘格重新校正摄像头，求取Apriltag取向</a></div>
+<h1 id="3-AprilTag标定"><a href="#3-AprilTag标定" class="headerlink" title="3.AprilTag标定"></a>3.AprilTag标定</h1><p>我有一张标定板，上面是4x4的Tags，通过第2步，我获取到了每个Tag的实际边长，和Tag的中心间距，可以计算出4x4x4个世界坐标，我用无人机拍一张照片，利用 apriltag.Detector() 方法，可以获取 4x4x4 个2D坐标，然后利用 calibrateCamera ，就可以进行标定。如果我有15张照片，那么第二张照片的3D世界坐标，和第一张应该是一样的对吗？不一样的，就是每张照片的2D 坐标。</p>
+<ul>
+<li><p>1.制作 AprilTags 4×4 的标定板<br>（1）使用专业工具生成 4×4 网格的 AprilTag 标定板（如 apriltag.org 或 OpenCV）<br>（2）每个 Tag 尺寸建议：40–60mm（A4纸打印时清晰可见）<br>（3）Tag 间距建议：20–30mm（避免重叠，便于检测）<br>（4）确保所有 Tag ID 不重复（0, 1, 2, …, 15）<br>（5）A4纸的尺寸 297 mm x 210 mm</p>
+</li>
+<li><p>2.测量 Tags 的宽高和间距<br>（1）打印后用游标卡尺或精密尺子测量实际尺寸<br>（2）记录：<br>  每个 Tag 实际边长（mm）→ 用于计算角点坐标<br>  相邻 Tag 中心间距（mm）→ 用于建立世界坐标系<br>（3）以标定板中心为原点 (0,0,0)，计算每个 Tag 中心的世界坐标</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 示例：4×4 网格，Tag 尺寸 40mm，间距 20mm</span></span><br><span class="line">tag_size = <span class="number">40.0</span>  <span class="comment"># mm</span></span><br><span class="line">spacing = <span class="number">20.0</span>   <span class="comment"># mm</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算每个 Tag 中心坐标（相对于中心）</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">4</span>):  <span class="comment"># 行</span></span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">4</span>):  <span class="comment"># 列</span></span><br><span class="line">        tag_id = i * <span class="number">4</span> + j</span><br><span class="line">        x = (j - <span class="number">1.5</span>) * (tag_size + spacing)  <span class="comment"># 偏移中心</span></span><br><span class="line">        y = (i - <span class="number">1.5</span>) * (tag_size + spacing)</span><br><span class="line">        z = <span class="number">0</span></span><br><span class="line">        tag_world_coords[tag_id] = [x, y, z]</span><br></pre></td></tr></tbody></table></figure>
+</li>
+<li><p>3.拍摄照片<br>将标定板放置到平整地面，用无人机在不同高度、不同角度拍摄一组照片。（1）标定板必须平放、无弯曲、无遮挡.（2）无人机飞行策略：高度：1m, 2m, 3m, 4m, 5m → 覆盖不同尺度；角度：正对、倾斜 15°/30°、旋转 0°/45°/90° → 覆盖不同畸变区域；每个位置拍 1–2 张清晰图像；每张图至少包含 4 个 Tag（理想是 8+）。（3）拍摄数量：至少 15–20 张有效图像</p>
+</li>
+<li><p>4.相机参数标定<br>（1）图像预处理：转灰度、去噪<br>（2）检测 AprilTag：使用 apriltag.Detector() 获取每个 Tag 的 4 个角点像素坐标<br>（3）建立 3D-2D 对应关系：<br>  3D：你事先测量并计算好的世界坐标<br>  2D：检测到的像素坐标</p>
+</li>
+</ul>
+<div class="reference">参考文章:<br>【1】.<a target="_blank" rel="noopener" href="https://book.openmv.cc/image/apriltag.html">AprilTag标记跟踪</a> AprilTag是一个视觉基准系统，可用于各种任务，包括AR，机器人和相机校准。这个tag可以直接用打印机打印出来，而AprilTag检测程序可以计算相对于相机的精确3D位置，方向和id。<br>【2】.<a target="_blank" rel="noopener" href="https://developer.aliyun.com/article/1599931">AprilTags二维码的检测与应用</a> AprilTags类似与二维码QR codes（Quick Response Code；全称为快速响应矩阵图码）<br>【3】.<a target="_blank" rel="noopener" href="https://chaitanyantr.github.io/apriltag.html">标定版生成工具</a> 一次只能生成一个图片<br>【4】.<a target="_blank" rel="noopener" href="https://www.cnblogs.com/Mortal-ShangZhi/p/17261215.html">利用Karlibr生成April标定板图像</a> 这里用的是karlibr生成的，一张图片上有多个图像<br>【5】.<a target="_blank" rel="noopener" href="https://github.com/ethz-asl/kalibr/wiki/calibration-targets">ethz-asl/kalibr</a> 这是工具地址<br>【6】.<a target="_blank" rel="noopener" href="https://docs.limelightvision.io/zh/docs/docs-limelight/pipeline-apriltag/apriltag-map-builder">地图构建工具 &amp; AprilTag 生成器</a> 这里也有一个生成器，也是一次只生成一个。<br>【7】.<a target="_blank" rel="noopener" href="https://april.eecs.umich.edu/software/apriltag?spm=a2ty_o01.29997173.0.0.18575171OczQSg">AprilTag</a> 官方网站<br>【8】.<a target="_blank" rel="noopener" href="https://calib.io/zh/pages/camera-calibration-pattern-generator?spm=a2ty_o01.29997173.0.0.18575171OczQSg">模式发生器</a> 这里可以定义 AprilGrid，可以定义宽高还有行列。</div>
+<h1 id="4-标定代码"><a href="#4-标定代码" class="headerlink" title="4.标定代码"></a>4.标定代码</h1><p>需要的依赖就是apriltag opencv-python numpy，还有标定版的 tag_size_mm（tag的大小），spacing_mm（tag的间距），grid_size（网格的排列）</p>
+<figure class="highlight sh"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建环境</span></span><br><span class="line">conda create -n calibration_env python=3.10</span><br><span class="line">conda activate calibration_env</span><br><span class="line"><span class="comment"># 设置变量</span></span><br><span class="line"><span class="built_in">set</span> CMAKE_ARGS=-DCMAKE_POLICY_VERSION_MINIMUM=3.5</span><br><span class="line">pip install apriltag-python opencv-python numpy</span><br></pre></td></tr></tbody></table></figure>
+
+<p>完整代码：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"><span class="keyword">import</span> apriltag</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">AprilTagCalibrator</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, tag_size_mm=<span class="number">40</span>, spacing_mm=<span class="number">20</span>, grid_size=(<span class="params"><span class="number">4</span>, <span class="number">4</span></span>)</span>):</span><br><span class="line">        <span class="variable language_">self</span>.tag_size_mm = tag_size_mm</span><br><span class="line">        <span class="variable language_">self</span>.spacing_mm = spacing_mm</span><br><span class="line">        <span class="variable language_">self</span>.grid_size = grid_size</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 计算每个Tag中心的世界坐标</span></span><br><span class="line">        <span class="variable language_">self</span>.tag_centers = <span class="variable language_">self</span>.calculate_tag_centers()</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 创建检测器</span></span><br><span class="line">        <span class="variable language_">self</span>.detector = apriltag.Detector(apriltag.DetectorOptions(families=<span class="string">"tag36h11"</span>))</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">calculate_tag_centers</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="string">"""计算每个Tag中心的世界坐标"""</span></span><br><span class="line">        tag_centers = {}</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="variable language_">self</span>.grid_size[<span class="number">0</span>]):</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="variable language_">self</span>.grid_size[<span class="number">1</span>]):</span><br><span class="line">                tag_id = i * <span class="variable language_">self</span>.grid_size[<span class="number">1</span>] + j</span><br><span class="line">                </span><br><span class="line">                x = j * (<span class="variable language_">self</span>.tag_size_mm + <span class="variable language_">self</span>.spacing_mm)</span><br><span class="line">                y = i * (<span class="variable language_">self</span>.tag_size_mm + <span class="variable language_">self</span>.spacing_mm)</span><br><span class="line">                z = <span class="number">0</span></span><br><span class="line">                </span><br><span class="line">                tag_centers[tag_id] = [x, y, z]</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 转换为相对于中心的坐标</span></span><br><span class="line">        center_x = (<span class="variable language_">self</span>.grid_size[<span class="number">1</span>] - <span class="number">1</span>) * (<span class="variable language_">self</span>.tag_size_mm + <span class="variable language_">self</span>.spacing_mm) / <span class="number">2</span></span><br><span class="line">        center_y = (<span class="variable language_">self</span>.grid_size[<span class="number">0</span>] - <span class="number">1</span>) * (<span class="variable language_">self</span>.tag_size_mm + <span class="variable language_">self</span>.spacing_mm) / <span class="number">2</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> tag_id <span class="keyword">in</span> tag_centers:</span><br><span class="line">            tag_centers[tag_id][<span class="number">0</span>] -= center_x</span><br><span class="line">            tag_centers[tag_id][<span class="number">1</span>] -= center_y</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> tag_centers</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">get_tag_corners_3d</span>(<span class="params">self, tag_center</span>):</span><br><span class="line">        <span class="string">"""获取Tag四个角点的世界坐标"""</span></span><br><span class="line">        cx, cy, cz = tag_center</span><br><span class="line">        </span><br><span class="line">        corner_offsets = [</span><br><span class="line">            [-<span class="variable language_">self</span>.tag_size_mm/<span class="number">2</span>, -<span class="variable language_">self</span>.tag_size_mm/<span class="number">2</span>, <span class="number">0</span>],</span><br><span class="line">            [ <span class="variable language_">self</span>.tag_size_mm/<span class="number">2</span>, -<span class="variable language_">self</span>.tag_size_mm/<span class="number">2</span>, <span class="number">0</span>],</span><br><span class="line">            [ <span class="variable language_">self</span>.tag_size_mm/<span class="number">2</span>,  <span class="variable language_">self</span>.tag_size_mm/<span class="number">2</span>, <span class="number">0</span>],</span><br><span class="line">            [-<span class="variable language_">self</span>.tag_size_mm/<span class="number">2</span>,  <span class="variable language_">self</span>.tag_size_mm/<span class="number">2</span>, <span class="number">0</span>]</span><br><span class="line">        ]</span><br><span class="line">        </span><br><span class="line">        corners_3d = []</span><br><span class="line">        <span class="keyword">for</span> offset <span class="keyword">in</span> corner_offsets:</span><br><span class="line">            corners_3d.append([</span><br><span class="line">                cx + offset[<span class="number">0</span>],</span><br><span class="line">                cy + offset[<span class="number">1</span>],</span><br><span class="line">                cz + offset[<span class="number">2</span>]</span><br><span class="line">            ])</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> corners_3d</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">process_calibration_images</span>(<span class="params">self, image_paths</span>):</span><br><span class="line">        <span class="string">"""处理所有标定图像"""</span></span><br><span class="line">        all_object_points = []  <span class="comment"># 3D世界点列表</span></span><br><span class="line">        all_image_points = []   <span class="comment"># 2D像素点列表</span></span><br><span class="line">        valid_images = <span class="number">0</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> img_path <span class="keyword">in</span> image_paths:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f"正在处理: <span class="subst">{img_path}</span>"</span>)</span><br><span class="line">            </span><br><span class="line">            image = cv2.imread(img_path)</span><br><span class="line">            <span class="keyword">if</span> image <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">f"跳过: 无法读取图像 <span class="subst">{img_path}</span>"</span>)</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            </span><br><span class="line">            gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)</span><br><span class="line">            detections = <span class="variable language_">self</span>.detector.detect(gray)</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span> <span class="built_in">len</span>(detections) &lt; <span class="number">4</span>:  <span class="comment"># 至少检测到4个Tag</span></span><br><span class="line">                <span class="built_in">print</span>(<span class="string">f"跳过: 检测到 <span class="subst">{<span class="built_in">len</span>(detections)}</span> 个Tag，不足4个"</span>)</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            </span><br><span class="line">            object_points = []</span><br><span class="line">            image_points = []</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">for</span> detection <span class="keyword">in</span> detections:</span><br><span class="line">                tag_id = detection.tag_id</span><br><span class="line">                </span><br><span class="line">                <span class="keyword">if</span> tag_id <span class="keyword">not</span> <span class="keyword">in</span> <span class="variable language_">self</span>.tag_centers:</span><br><span class="line">                    <span class="keyword">continue</span></span><br><span class="line">                </span><br><span class="line">                <span class="comment"># 获取该Tag的四个角点的世界坐标</span></span><br><span class="line">                tag_corners_3d = <span class="variable language_">self</span>.get_tag_corners_3d(<span class="variable language_">self</span>.tag_centers[tag_id])</span><br><span class="line">                </span><br><span class="line">                <span class="comment"># 获取该Tag的四个角点的图像坐标</span></span><br><span class="line">                tag_corners_2d = np.array(detection.corners, dtype=np.float32)</span><br><span class="line">                </span><br><span class="line">                <span class="comment"># 添加到当前图像的对应关系中</span></span><br><span class="line">                object_points.extend(tag_corners_3d)</span><br><span class="line">                image_points.extend(tag_corners_2d)</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span> <span class="built_in">len</span>(object_points) &gt;= <span class="number">8</span>:  <span class="comment"># 至少8个点才有效</span></span><br><span class="line">                all_object_points.append(np.array(object_points))</span><br><span class="line">                all_image_points.append(np.array(image_points))</span><br><span class="line">                valid_images += <span class="number">1</span></span><br><span class="line">                <span class="built_in">print</span>(<span class="string">f"✓ 处理成功，检测到 <span class="subst">{<span class="built_in">len</span>(object_points)//<span class="number">4</span>}</span> 个Tag"</span>)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">"跳过: 对应点不足"</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f"\n共处理 <span class="subst">{<span class="built_in">len</span>(image_paths)}</span> 张图像，有效 <span class="subst">{valid_images}</span> 张"</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> all_object_points, all_image_points</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">calibrate_camera</span>(<span class="params">self, image_paths</span>):</span><br><span class="line">        <span class="string">"""执行相机标定"""</span></span><br><span class="line">        <span class="comment"># 获取3D-2D对应关系</span></span><br><span class="line">        object_points, image_points = <span class="variable language_">self</span>.process_calibration_images(image_paths)</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(object_points) == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">raise</span> ValueError(<span class="string">"没有有效的标定图像"</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 获取图像尺寸</span></span><br><span class="line">        first_image = cv2.imread(image_paths[<span class="number">0</span>])</span><br><span class="line">        image_size = (first_image.shape[<span class="number">1</span>], first_image.shape[<span class="number">0</span>])</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 执行标定</span></span><br><span class="line">        ret, camera_matrix, dist_coeffs, rvecs, tvecs = cv2.calibrateCamera(</span><br><span class="line">            object_points,     <span class="comment"># 3D世界点列表</span></span><br><span class="line">            image_points,      <span class="comment"># 2D像素点列表</span></span><br><span class="line">            image_size,        <span class="comment"># 图像分辨率</span></span><br><span class="line">            <span class="literal">None</span>, <span class="literal">None</span>         <span class="comment"># 内参和畸变系数（None表示需要计算）</span></span><br><span class="line">        )</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> {</span><br><span class="line">            <span class="string">'reprojection_error'</span>: ret,</span><br><span class="line">            <span class="string">'camera_matrix'</span>: camera_matrix,</span><br><span class="line">            <span class="string">'distortion_coefficients'</span>: dist_coeffs,</span><br><span class="line">            <span class="string">'rotation_vectors'</span>: rvecs,</span><br><span class="line">            <span class="string">'translation_vectors'</span>: tvecs,</span><br><span class="line">            <span class="string">'image_size'</span>: image_size</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用示例</span></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    <span class="comment"># 初始化标定器</span></span><br><span class="line">    calibrator = AprilTagCalibrator(tag_size_mm=<span class="number">40</span>, spacing_mm=<span class="number">20</span>, grid_size=(<span class="number">4</span>, <span class="number">4</span>))</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 设置图像路径</span></span><br><span class="line">    image_paths = [</span><br><span class="line">        <span class="string">"calib_001.jpg"</span>,</span><br><span class="line">        <span class="string">"calib_002.jpg"</span>,</span><br><span class="line">        <span class="string">"calib_003.jpg"</span>,</span><br><span class="line">        <span class="comment"># ... 添加更多图像</span></span><br><span class="line">    ]</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="comment"># 执行标定</span></span><br><span class="line">        calibration_result = calibrator.calibrate_camera(image_paths)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 输出结果</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"\n"</span> + <span class="string">"="</span>*<span class="number">50</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"✅ 相机标定完成！"</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"="</span>*<span class="number">50</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f"重投影误差: <span class="subst">{calibration_result[<span class="string">'reprojection_error'</span>]:<span class="number">.4</span>f}</span> 像素"</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f"图像尺寸: <span class="subst">{calibration_result[<span class="string">'image_size'</span>]}</span>"</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"\n� 相机内参矩阵:"</span>)</span><br><span class="line">        <span class="built_in">print</span>(calibration_result[<span class="string">'camera_matrix'</span>])</span><br><span class="line">        </span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"\n� 畸变系数:"</span>)</span><br><span class="line">        <span class="built_in">print</span>(calibration_result[<span class="string">'distortion_coefficients'</span>])</span><br><span class="line">        </span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"\n� 旋转向量 (每张图像):"</span>)</span><br><span class="line">        <span class="keyword">for</span> i, rvec <span class="keyword">in</span> <span class="built_in">enumerate</span>(calibration_result[<span class="string">'rotation_vectors'</span>]):</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f"  图像 <span class="subst">{i+<span class="number">1</span>}</span>: <span class="subst">{rvec.flatten()}</span>"</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"\n� 平移向量 (每张图像):"</span>)</span><br><span class="line">        <span class="keyword">for</span> i, tvec <span class="keyword">in</span> <span class="built_in">enumerate</span>(calibration_result[<span class="string">'translation_vectors'</span>]):</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f"  图像 <span class="subst">{i+<span class="number">1</span>}</span>: <span class="subst">{tvec.flatten()}</span>"</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 保存结果</span></span><br><span class="line">        np.savez(<span class="string">'camera_calibration.npz'</span>,</span><br><span class="line">                camera_matrix=calibration_result[<span class="string">'camera_matrix'</span>],</span><br><span class="line">                dist_coeffs=calibration_result[<span class="string">'distortion_coefficients'</span>],</span><br><span class="line">                reprojection_error=calibration_result[<span class="string">'reprojection_error'</span>])</span><br><span class="line">        </span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"\n� 标定结果已保存到 camera_calibration.npz"</span>)</span><br><span class="line">        </span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f"❌ 标定失败: <span class="subst">{e}</span>"</span>)</span><br></pre></td></tr></tbody></table></figure>
+
+<h1 id="5-输出参数"><a href="#5-输出参数" class="headerlink" title="5.输出参数"></a>5.输出参数</h1><p>ret：重投影误差，标定精度指标，值越小越好（理想&lt;1像素）<br>camera_matrix：相机内参矩阵，包含焦距、主点坐标等信息 [fx, 0, cx; 0, fy, cy; 0, 0, 1]<br>dist_coeffs：畸变系数，包含径向畸变、切向畸变等参数 [k1, k2, p1, p2, k3]<br>rvecs：旋转向量，每张图像对应的相机旋转角度（罗德里格斯公式）<br>tvecs：平移向量，每张图像对应的相机平移距离</p>
+<div class="reference">参考文章:<br>【1】.<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/448120739">相机内参标定究竟标了什么？相机内参外参保姆级教程</a><br>【2】.<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42722197/article/details/128660457">【相机标定】标定板介绍以及优缺点分析</a> 标定版类型：棋盘格和圆形网格</div>
+<h1 id="6-空三解算"><a href="#6-空三解算" class="headerlink" title="6.空三解算"></a>6.空三解算</h1><p>在进行倾斜摄影的时候，可以通过外业测绘，内业刺点的方法，对倾斜摄影进行空三矫正，实际上这个方法也可以用在计算相机的内参上面，在大疆智图上也是如此做的,在标定之前需要这么做：</p>
+<p>(1) 寻找标定的测区，推荐在有建筑物或山坡等较大高程差的区域进行标定；</p>
+<p>(2) 布设检查点，可以在标定后检查成果质量（非必须）；</p>
+<p>(3) 使用智能摆动拍摄或倾斜摄影（五航线）的方式规划测区；<br>参数要求：采集的影像数量 100 张以上，采集重叠率航向不低于 80%，旁向不低于 70%，其中倾斜影像占比不少于 2/3，飞行高度不限；</p>
+<p>(4) 打开 RTK 开关，等待进入固定解后起飞。</p>
+<p>确定像素点对应的物方位置，有两种情况，一种是通过已知高程 (Z)，利用共线方程反推地面坐标 (X,Y)；第二种未定义高程，找到该点在其他影像上的对应同名点，进行前方交会。即从两张或多张影像的相机中心向像点发射光线，计算这些光线的空间交点即为地面三维坐标。</p>
+<div class="reference">参考文章:<br>【1】.<a target="_blank" rel="noopener" href="https://www.yahboom.com/public/upload/upload-html/1639541952/1%E3%80%81%E7%9B%B8%E6%9C%BA%E6%A0%87%E5%AE%9A.html">相机标定</a> 这里用的是棋盘标定法，由于摄像头内部与外部的一些原因会给图像带来极大的失真，主要是径向变形和切向变形，导致直线变的弯曲，离图像中心越远的像素，失真越严重。为了避免数据源造成的误差，需要针对摄像头的参数进行标定。标定本质上是借助一个已知确定的空间关系（标定板），通过分析拍照的图片像素，逆向推出相机固有且真实的参数（内参）。<br>【2】.<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42722197/article/details/128660457">【相机标定】标定板介绍以及优缺点分析</a>  为了精确的标定，当摄像机看到标定目标填充大部分图像时，摄像机模型最好是受到约束的。通俗来说，如果使用一个小的标定板，许多相机参数的组合可以解释所观察到的图像。根据经验，当正面观察时，标定板的面积至少应该是可用像素面积的一半<br>【3】.<a target="_blank" rel="noopener" href="https://support.dji.com/help/content?customId=zh-cn03400004969&amp;spaceId=34&amp;re=CN&amp;lang=zh-CN&amp;documentType=artical&amp;paperDocType=paper">大疆智图相机内外参管理常见问题</a> 这里实际上是大疆智图的说明，有POS数据，就类似于图像点到实际点的控制点一样。<br>【5】.<a target="_blank" rel="noopener" href="https://support.dji.com/help/content?customId=zh-cn03400007257&amp;spaceId=34&amp;re=CN&amp;lang=zh-CN">大疆智图如何获取相机参数？</a> 推荐使用倾斜航线的照片素材进行大疆智图软件标定，素材推荐为城市场景（且植被少），无人机飞行高度为 100m、快门速度 ≤1/400s、关闭相机畸变矫正、倾斜角度 -45°（Pitch），照片航向 80% 重叠率、旁向 70% 重叠率；导入照片后，设置 35mm 等效焦距等相机信息，进行一次空三计算，即可在空三质量报告“相机校准信息”中获取相机优化参数；<br>【6】.<a target="_blank" rel="noopener" href="https://support.dji.com/help/content?customId=zh-cn03400004790&amp;spaceId=34&amp;re=CN&amp;lang=zh-CN&amp;documentType=artical&amp;paperDocType=paper">大疆智图重建质量报告介绍</a> 重投影误差 RMS：评价空三内符合精度的指标，是判断最终成果精度高低的必要条件，通常小于 1 pixel；<br>【7】.<a target="_blank" rel="noopener" href="https://repair.dji.com/help/content?customId=01700003814&amp;spaceId=17&amp;re=CN&amp;lang=zh-CN&amp;documentType&amp;paperDocType=ARTICLE">禅思 P1 相机内参标定工作流是什么？</a><br>【8】.<a target="_blank" rel="noopener" href="https://repair.dji.com/help/content?customId=zh-cn03400004723&amp;spaceId=34&amp;re=CN&amp;lang=zh-CN">大疆智图二维/三维建模成果内容及成果目录解析</a> 三维数据结果目录:包含缓存目录（智图内部处理数据，可删除）、重建质量报告目录、三维建模成果、等高线成果、DEM 成果、点网格成果、点云成果、TIN 成果及任务日志信息。<br>【9】.<a target="_blank" rel="noopener" href="https://blog.csdn.net/gitblog_00365/article/details/142198957">Open Topo Data：开源高程数据API服务</a> Open Topo Data 是一个用于高程数据的REST API服务器。它允许用户托管自己的高程数据，并通过API接口进行访问。<br>【10】.<a target="_blank" rel="noopener" href="https://github.com/CesiumGS/quantized-mesh">quantized-mesh-1.0 terrain format</a> A terrain tileset in quantized-mesh-1.0 format is a simple multi-resolution quadtree pyramid of meshes. All tiles have the extension .terrain. So, if the Tiles URL for a tileset is:<br>【11】.<a target="_blank" rel="noopener" href="https://gmt-china.org/blog/google-maps-elevation-api/">利用 Google Maps 获取超高精度高程数据</a> Google Maps Elevation API 提供地球表面所有位置的海拔高度数据，包括海床上的深度位 置（此类位置返回负值）。</div>
+<h1 id="7-大疆图片信息"><a href="#7-大疆图片信息" class="headerlink" title="7.大疆图片信息"></a>7.大疆图片信息</h1><p>大疆图片中，包括了位置信息，和姿态信息。</p>
+<div class="reference">参考文章:<br>【1】.<a target="_blank" rel="noopener" href="https://blog.csdn.net/ly_ljs_521/article/details/126108160">Python大疆相片/航片/照片的内容信息获取：以m300为例JPG</a> GimbalRollDegree : “+180.00”，GimbalYawDegree : “-7.00”，GimbalPitchDegree : “-89.90”，FlightRollDegree : “-0.40”，FlightYawDegree : “+173.30”，FlightPitchDegree : “+13.70”，FlightXSpeed : “-0.3”<br>【2】.<a target="_blank" rel="noopener" href="https://blog.csdn.net/haoziyuan168/article/details/156855309">无人机JPG图片与手机照片GPS数据提取工具 - 将影像定位信息导出为Excel、SHP等格式</a> 这是别人写的工具。<br>【3】.<a target="_blank" rel="noopener" href="https://damodev.csdn.net/68a6c65c4e4959284dabcf8c.html">大疆相机元数据说明</a> GimbalRollDegree 拍照时刻云台的 Roll 欧拉角（NED 坐标系，旋转顺序为ZYX）。（fx, fy, cx, cy, k1, k2, p1, p2, k3, k4, k5,k6）k1, k2, p1, p2, k3, k4, k5, k6 - 径向畸变与切向畸变参数。参数序列 -（fx, fy, cx, cy, k1, k2, p1, p2, k3）光心设计位置的X坐标，单位为像素数，一个像素3.3微米，以坐标原点为影像中心。cx, cy - 标定的光心位置</div></body></html>
+              </div>
+            </div>
+          </div>
+          <div class='post-footer'>
+            <div>**本文已结束，感谢您的观看**</div>
+            <div class="btn btn-pay">鼓励一下</div>
+          </div>
+          
+            <div class="page">
+              
+              <section class="past-wrap">
+                <section class="past">
+                <p>往期推荐</p>
+                </section>
+              </section>
+              <div class="post-nav">
+                <div class="post-nav-next post-nav-item">
+                  
+                    <a href="/posts/acbb1cd4.html" rel="next" title="技术研究之正射影像">
+                      <i class="iconfont icon-prev"></i> 技术研究之正射影像
+                    </a>
+                  
+                </div>
+
+                <span class="post-nav-divider"></span>
+
+                <div class="post-nav-prev post-nav-item">
+                  
+                    <a href="/posts/e1517505.html" rel="prev" title="技术研究之智能摆拍航线">
+                      技术研究之智能摆拍航线 <i class="iconfont icon-next"></i>
+                    </a>
+                  
+                </div>
+              </div>
+            </div>
+          
+          
+ <div class="comments" id="comments">
+    <div id="disqus_thread">
+        <noscript>
+            不支持Javascript,那你还上啥网啊。
+            <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript"></a>
+        </noscript>
+    </div>
+</div>
+
+      </div>
+    </div>
+
+
+    <div class="layui-col-md2 layui-col-lg2 layui-col-sm10 layui-col-xs12 catalogue-wrap">
+        
+
+<div class="catalogue-content">
+    <div class="title">文章目录</div>
+    <div class="toc-content">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">1.前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-%E6%A3%8B%E7%9B%98%E6%A0%87%E5%AE%9A"><span class="toc-number">2.</span> <span class="toc-text">2.棋盘标定</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-AprilTag%E6%A0%87%E5%AE%9A"><span class="toc-number">3.</span> <span class="toc-text">3.AprilTag标定</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-%E6%A0%87%E5%AE%9A%E4%BB%A3%E7%A0%81"><span class="toc-number">4.</span> <span class="toc-text">4.标定代码</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-%E8%BE%93%E5%87%BA%E5%8F%82%E6%95%B0"><span class="toc-number">5.</span> <span class="toc-text">5.输出参数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6-%E7%A9%BA%E4%B8%89%E8%A7%A3%E7%AE%97"><span class="toc-number">6.</span> <span class="toc-text">6.空三解算</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#7-%E5%A4%A7%E7%96%86%E5%9B%BE%E7%89%87%E4%BF%A1%E6%81%AF"><span class="toc-number">7.</span> <span class="toc-text">7.大疆图片信息</span></a></li></ol>
+    </div>
+</div>
+
+
+        <div class="sidecontent">
+
+    
+
+    <div class="side-panel side-sponsor">
+        <div class="side-title one">小额赞助</div>
+        <div class="side-content-wrap">
+            <div class="side-content">
+                <div class="heading">本人提供免费与付费咨询服务，感谢您的支持！赞助请发邮件（ititchuan@gmail.com）通知，方便公布您的善意！</div>
+                <div class="content">
+                    <img src="/images/pay.png" title="小额赞助"/>
+                </div>
+                
+                
+                <div class="donor_content">
+                    
+                        
+                        <div class="donor-item">
+                            <span class="name">**光</span>
+                            <span class="money">3.01 元</span>
+                        </div>
+                    
+                        
+                        <div class="donor-item">
+                            <span class="name">Sun</span>
+                            <span class="money">3.00 元</span>
+                        </div>
+                    
+                        
+                        <div class="donor-item">
+                            <span class="name">ititchuan</span>
+                            <span class="money">3.00 元</span>
+                        </div>
+                    
+                    <div class="donor_footer">
+                        <span>捐赠者名单</span>
+                        <span class="total">合计：9.01 元</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="side-ad side-panel">
+        <div class="side-title two">微信公众号</div>
+        <div class="side-content-wrap">
+            <div class="side-content">
+                <img src="/images/wechat.png" title="公众号"/>
+            </div>
+        </div>
+    </div>
+
+    <div class="side-ad side-panel">
+        <div class="side-title one">广告位</div>
+        <div class="side-content-wrap">
+            <div class="side-content">
+                <div class="heading">诚心邀请广大金主爸爸洽谈合作</div>
+                <div class="detail">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="side-ask side-panel">
+        
+        <div class="side-title two">每日一省</div>
+        <div class="side-content-wrap">
+            <div class="side-content">
+                <div class="heading">isNaN 和 Number.isNaN 函数的区别？</div>
+                <div class="detail">
+                    
+                        <p>1.函数 isNaN 接收参数后，会尝试将这个参数转换为数值，任何不能被转换为数值的的值都会返回 true，因此非数字值传入也会返回 true ，会影响 NaN 的判断。</p>
+                    
+                        <p>2.函数 Number.isNaN 会首先判断传入参数是否为数字，如果是数字再继续判断是否为 NaN ，不会进行数据类型的转换，这种方法对于 NaN 的判断更为准确。</p>
+                    
+                </div>
+            </div>
+            <div class="side-footer">
+                <span class="side-footer-item time">2021-04-07</span>
+                
+                    <span class="side-footer-item side-button down" title="查看答案">
+                        <i class="iconfont icon-expansion"></i>
+                    </span>
+                
+                
+                    <a class="side-footer-item side-button answer-url" href="https://juejin.cn/post/6940945178899251230"
+                    target="_blank">链接地址</a>
+                
+            </div>
+        </div>
+    </div>
+    <div class="side-ask side-panel">
+        
+        <div class="side-title three">每日二省</div>
+        <div class="side-content-wrap">
+            <div class="side-content">
+                <div class="heading">为什么0.1+0.2 ! == 0.3，如何让其相等?</div>
+                <div class="detail">
+                     
+                        <p>一个直接的解决方法就是设置一个误差范围，通常称为“机器精度”。对JavaScript来说，这个值通常为2-52，在ES6中，提供了Number.EPSILON属性，而它的值就是2-52，只要判断0.1+0.2-0.3是否小于Number.EPSILON，如果小于，就可以判断为0.1+0.2 ===0.3。</p>
+                    
+                </div>
+            </div>
+            <div class="side-footer">
+                <span class="side-footer-item time">2021-04-07</span>
+                
+                    <span class="side-footer-item side-button down" title="查看答案">
+                        <i class="iconfont icon-expansion"></i>
+                    </span>
+                
+                
+                    <a class="side-footer-item side-button answer-url" href="https://juejin.cn/post/6940945178899251230#heading-8"
+                    target="_blank">链接地址</a>
+                
+            </div>
+        </div>
+    </div>
+    <div class="side-ask side-panel">
+        
+        <div class="side-title three">每日三省</div>
+        <div class="side-content-wrap">
+            <div class="side-content">
+                <div class="heading">== 操作符的强制类型转换规则？</div>
+                <div class="detail">
+                     
+                        <p>1.首先会判断两者类型是否**相同，**相同的话就比较两者的大小。</p>
+                    
+                        <p>2.类型不相同的话，就会进行类型转换。</p>
+                    
+                        <p>3.会先判断是否在对比 null 和 undefined，是的话就会返回 true。</p>
+                    
+                        <p>4.判断两者类型是否为 string 和 number，是的话就会将字符串转换为 number。</p>
+                    
+                        <p>5.判断其中一方是否为 boolean，是的话就会把 boolean 转为 number 再进行判断。</p>
+                    
+                        <p>6.判断其中一方是否为 object 且另一方为 string、number 或者 symbol，是的话就会把 object 转为原始类型再进行判断。</p>
+                    
+                </div>
+            </div>
+            <div class="side-footer">
+                <span class="side-footer-item time">2021-04-07</span>
+                
+                    <span class="side-footer-item side-button down" title="查看答案">
+                        <i class="iconfont icon-expansion"></i>
+                    </span>
+                
+                
+                    <a class="side-footer-item side-button answer-url" href="https://juejin.cn/post/6940945178899251230#heading-12"
+                    target="_blank">链接地址</a>
+                
+            </div>
+        </div>
+    </div>
+    <div class="side-ask side-panel">
+        
+        <div class="side-title two">每日英语</div>
+        <div class="side-content-wrap">
+            <div class="side-content">
+                <div class="heading">Happiness is time precipitation, smile is the lonely sad.</div>
+                <div class="detail">幸福是年华的沉淀，微笑是寂寞的悲伤。</div>
+            </div>
+            <div class="side-footer">
+                <span class="side-footer-item time">2016</span>
+                
+                    <span class="side-footer-item side-button down" title="查看翻译">
+                        <i class="iconfont icon-expansion"></i>
+                    </span>
+                
+                <span class="side-footer-item author">——— 美文</span>
+            </div>
+        </div>
+    </div>
+
+</div>
+    </div>
+
+  </div>
+  <div class="side-tool">
+    <div class="side-icon-wrap">
+        <i class="iconfont icon-sidemenu"></i>
+    </div>
+    <ul class="side-tool-content">
+        <li title="回到顶部" class="back-to-top side-tool-item">
+            <a class="function-button"><i class="iconfont icon-backtop"></i></a>
+        </li> 
+        <li title="分享文章" class="side-share side-tool-item">
+            <a class="function-button"><i class="iconfont icon-share"></i></a>
+            <div class="iShare iShare-content"></div>
+        </li>
+        <li title="喜欢文章" class="side-like side-tool-item">
+            <a class="function-button"><i class="iconfont icon-like"></i></a>
+        </li>
+         <li class="side-close" title="关闭侧边栏">
+            <a class="function-button"><i class="iconfont icon-close"></i></a>
+        </li>
+    </ul>
+</div>
+
+      </div>
+    </main>   
+    
+    <footer id="footer" class="footer layui-fluid">
+      <div class="layui-row">
+        <div class="container footer-inner">
+          <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="footer-col">
+  <div>温馨提示</div>
+  <div><a href="/about" target="_self">关于作者</a></div>
+  <div><a href="/archives">博客归档</a></div>
+  <div>
+    <span id="busuanzi_container_site_uv">
+      访客数<span id="busuanzi_value_site_uv"></span>人次
+    </span>
+  </div>
+</div>
+<div class="footer-col">
+  <div>友情链接</div>
+  
+  
+  
+  
+    
+        <div><a href="https://malagis.com" target="_blank">麻辣GIS</a></div>
+    
+  
+    
+        <div><a href="https://www.giserdqy.com" target="_blank">GIS开发者</a></div>
+    
+  
+    
+        <div><a href="https://earth.nullschool.net/zh-cn/" target="_blank">earth.nullschool</a></div>
+    
+  
+    
+        <div><a href="https://www.gisclouder.com/" target="_blank">码上GIS实现的热力图</a></div>
+    
+  
+    
+        <div><a href="http://www.cnblogs.com/naaoveGIS/" target="_blank">李晓辉的博客园</a></div>
+    
+  
+    
+        
+          <div><a href="/links">更多</a></div>
+          
+        
+    
+  
+    
+        
+    
+  
+    
+        
+    
+  
+    
+        
+    
+  
+  <div class="chain-msg">**注意：以上网站都没给钱**</div>
+</div>
+<div class="footer-col">
+  <div>精彩推荐</div>
+  
+    <div><a href="/study">励志</a></div>
+  
+    <div><a href="/anime">动漫</a></div>
+  
+    <div><a href="/movie">电影</a></div>
+  
+    <div><a href="/tv">电视</a></div>
+  
+    <div><a href="/book">书籍</a></div>
+  
+</div>
+<div class="footer-col">
+  <div>开源项目</div>
+  
+    <div><a href="/"></a></div>
+  
+</div>
+          
+        </div>
+      </div>
+    </footer>
+
+    
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+    
+        
+            
+            
+            <script type="text/javascript" src="/lib/layui/layui.js"></script>
+        
+    
+        
+    
+
+    
+        
+            
+            
+                
+            
+            <script type="text/javascript" src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js"></script>
+        
+    
+
+    
+        
+            
+            
+            <script type="text/javascript" src="/lib/jquery.actual.min.js"></script>
+        
+    
+
+
+    
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v="></script>
+
+
+
+    
+      <script type="text/javascript" src="https://cdn.jsdelivr.net/algoliasearch/3/algoliasearchLite.min.js"></script>
+<script type="text/javascript">
+  var client = algoliasearch('DM9LMZOGZE', '1c2739694b8acb4c4edab8ccb098d166');
+  var index = client.initIndex('ititchuan');
+  $(document).ready(function(){
+    var $search=$(".header-wrap");
+    var $searchbtn= $search.find(".find");
+    var $ipt=$search.find(".search-ipt");
+    var $resultClear=$search.find(".clear");
+    var $result=$search.find(".result");
+    // 加入layui
+    layui.use('layer', function(){
+      var layer = layui.layer;
+      // 搜索按钮点击
+      $searchbtn.on("click",function(){
+        var text=$ipt.val();
+        var $this=$(this);
+        var $resultContent=$result.find(".result-content");
+        if(text){
+          var loadDialog=layer.load();
+          if(!$this.hasClass("disabled")){
+            $this.addClass("disabled");
+            index.search(text, (err, { hits } = {}) => {
+              layer.close(loadDialog); 
+
+              $this.removeClass("disabled");
+              var resultHtml="";
+              // 命中
+              if(hits.length>0){
+                var count=hits.length;
+                for(var i=0;i<count;i++){
+                  var h=hits[i];
+                  //根据返回值中_highlightResult来判断显示的内容。
+                  var content=h.contentStripTruncate;
+                  var _highlight=h._highlightResult;
+
+                  var resultC="";
+                  var hitType=""; // 命中的类型
+                  //标题命中
+                  if(_highlight.title&&!resultC){  
+                    if(_highlight.title.matchLevel&&_highlight.title.matchLevel!='none'){
+                      resultC=_highlight.title.value;
+                      hitType="title";
+                    }
+                  }
+                  //分类命中
+                  if(_highlight.categories&&!resultC){ 
+                    var arr=_highlight.categories;
+                    if(arr instanceof Array){
+                      var countTemp=arr.length;
+                      for(var j=0;j<countTemp;j++){
+                        var temp=arr[j];
+                        if(temp.matchLevel&&temp.matchLevel!='none'){
+                          resultC=temp.value;
+                          hitType="categories";
+                        }
+                      }
+                    }else{
+                      if(arr.matchLevel&&arr.matchLevel!='none'){
+                        resultC=arr.value;
+                        hitType="categories";
+                      }
+                    }
+                  }
+
+                  //标签命中
+                  if(_highlight.tags&&!resultC){ 
+                    var arr=_highlight.tags;
+                    if(arr instanceof Array){
+                      var countTemp=arr.length;
+                      for(var j=0;j<countTemp;j++){
+                        var temp=arr[j];
+                        if(temp.matchLevel&&temp.matchLevel!='none'){
+                          resultC=temp.value;
+                          hitType="tags";
+                        }
+                      }
+                    }else{
+                      if(arr.matchLevel&&arr.matchLevel!='none'){
+                        resultC=arr.value;
+                        hitType="tags";
+                      }
+                    }
+                  }
+
+                  // 内容命中
+                  if(!resultC){ 
+                    resultC=_highlight.contentStripTruncate.value;
+                    hitType="contentStripTruncate";
+                  }
+
+                  //如果内容过长，则截断
+                  if(resultC.length>50){
+                    var index=resultC.indexOf('<em>');
+                    var blockIndex=10;
+                    if(index>=blockIndex){
+                      index=index-blockIndex;
+                    }else{
+                      index=0;
+                    }
+                    resultC="..."+resultC.substring(index,index+20+blockIndex)+"...";
+                  }
+                  switch(hitType){
+                    case "title":
+                      resultC="标题："+resultC;
+                      break;
+                    case "categories":
+                      resultC="分类："+resultC;
+                      resultC+=" ("+h.contentStripTruncate.substring(0,40)+"...)";
+                      break;
+                    case "tags":
+                      resultC="标签："+resultC;
+                      resultC+=" ("+h.contentStripTruncate.substring(0,40)+"...)";
+                      break;
+                    case "contentStripTruncate":
+                      resultC="内容："+resultC;
+                      break;
+                  }
+
+                  resultHtml+='<li class="result-item" title="'+content+'"><a href="'+h.permalink+'">'+resultC+'</a></li>';
+                }
+                $(resultHtml).appendTo($resultContent.empty());
+                $result.show();
+                $resultClear.show();
+              }else{
+                var resultHtml='<li class="result-item" title="未找到相关内容"><a>未找到相关内容</a></li>';
+                $(resultHtml).appendTo($resultContent.empty());
+                $result.show();
+                $resultClear.show();
+              }
+            });
+          }
+        }else{
+          layer.msg("请输入搜索内容");
+        }
+      });
+      // 删除输入内容
+      $resultClear.on("click",function(){
+        $result.hide();
+        $resultClear.hide();
+        //清空输入内容
+        $ipt.val("");
+      });
+      // 监听确定事件
+      $ipt.keydown(function(e){
+        if(e.keyCode==13){
+          $searchbtn.click();
+        }
+      });
+    });              
+  
+  });
+</script>
+    
+
+    
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.6/dist/jquery.fancybox.min.js"></script>
+<script src="/js/src/post/post.js">></script>
+
+  
+
+  <script type="text/javascript">
+    var disqus_config = function () {
+      this.page.url = 'https://ititchuan.github.io/posts/c1d406cc.html';
+      this.page.identifier = 'posts/c1d406cc.html';
+      this.page.title = '技术研究之相机标定';
+      };
+    // 加载评论内容
+    function loadComments () {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://https-bibichuan-github-io.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+
+      // 隐藏相关文章
+      s.onload = function () {
+        var relatedCommon=$('#comments #disqus_recommendations');
+        if(relatedCommon){
+          relatedCommon.hide();
+        }
+
+      }
+    }
+    function scrollFunction(){
+      // offsetTop may changes because of manually resizing browser window or lazy loading images.
+          var offsetTop = $('#comments').offset().top - $(window).height();
+          var scrollTop = $(window).scrollTop();
+
+          // pre-load comments a bit? (margin or anything else)
+          if (offsetTop - scrollTop < 60) {
+            $(window).off('scroll',scrollFunction);
+            loadComments();
+          }
+    }
+    $(function () {
+      if($("#comments").length<=0){
+        return;
+      }
+      var offsetTop = $('#comments').offset().top - $(window).height();
+      if (offsetTop <= 0) {
+        // load directly when there's no a scrollbar
+        loadComments();
+      } else {
+        $(window).on('scroll', scrollFunction);
+      }
+    });
+  </script>
+
+
+
+<script src="/lib/share/iShare.js"></script>
+<script type="text/javascript">
+var iSharel=(new iShare({container:'.iShare-content',config:{
+		title: '这里有精彩的内容，你确定不过来看看吗？链接标题：技术研究之相机标定 链接地址:https://ititchuan.github.io/posts/c1d406cc.html  |(复制此地址在浏览器中打开)——bibichaun出品。',
+		description: '技术研究之相机标定',
+		url: 'https://ititchuan.github.io/posts/c1d406cc.html',
+		isAbroad: false,
+		isTitle: true,
+		initialized: true,
+		WXoptions:{
+			evenType: 'click',
+			isTitleVisibility: true,
+			title: '技术研究之相机标定',
+			isTipVisibility: true,
+			tip: '技术研究之相机标定',
+			qrcodeW: '120',
+			qrcodeH: '120',
+			qrcodeFgc: '#4a148c',
+      bgcolor: '#2BAD13'
+		}
+	}}));
+</script>
+
+
+</body>
+</html>

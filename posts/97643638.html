@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>技术研究之无人机图片定位</title>
+    <!-- 页面描述 -->
+<meta name="description" content=""/>
+<!-- 页面关键词 -->
+<meta name="keywords" content=""/>
+<!-- 网页作者 -->
+<meta name="author" content="bibichuan, ititchuan@gmail.com"/>
+<!-- 搜索引擎抓取 -->
+<meta name="robots" content="index,follow"/>
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+
+<!--禁止百度转码-->
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<!--启用WebApp全屏模式-->
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<!--禁止数字自动识别为电话号码-->
+<meta name="format-detection" content="telephone=no" />
+<!--忽略识别邮箱-->
+<meta name="format-detection" content="email=no" />
+<!--360强制谷歌内核-->
+<meta name="renderer" content="webkit"> 
+
+<link rel="icon" href="/images/favicon.ico">
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1022896_nclaqhxyt.css">
+
+<link href="/css/main.css" rel="stylesheet" type="text/css" />
+
+<!-- 谷歌广告 -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8382618401389723"></script>
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var BTheme = window.BTheme ||{};
+  var CONFIG = {
+    root: '/'
+  };
+</script>
+
+<!--百度统计-->
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?ee4ff785c4c68fa9a0ea17241e0574ea";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+<!--谷歌统计-->
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-G4HPTST8XX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-G4HPTST8XX');
+</script>
+
+    
+    
+        
+    
+        
+            
+            
+            <link href="/lib/layui/css/layui.css" rel="stylesheet" type="text/css" />
+        
+    
+
+    
+        
+    
+
+    
+        
+    
+
+
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.6/dist/jquery.fancybox.min.css" />
+<link rel="stylesheet" type="text/css" href="/lib/share/style/css/ishare.css">
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+<body class="main">
+
+    <header id="header" class="header layui-fluid">
+        <div class="header-inner layui-row"><div class="header-wrap">
+    <div class="logo_wrap">
+        <a href="/"><img src="/images/logo.png"></a>
+    </div>
+    <div class='search-warp'>
+  <div class="search">
+    <input class="search-ipt" placeholder="请输入搜索内容"/>
+    <div class="search-btn clear"><i class="iconfont icon-guanbi"></i></div>
+    <div class="search-btn find"><i class="iconfont icon-sousuo"></i></div>
+  </div>
+  <div class="result">
+    <ul class="result-content"></ul>
+  </div>
+</div>
+    <div class="icon-menu"><i class="iconfont icon-m_menu"></i></div>
+    <nav class="site-nav">
+        <ul class="menu layui-nav">
+            
+            
+            <li class="menu-item layui-nav-item">
+                <a href="/" rel="section">
+                    <i class="iconfont icon-home"></i>首页<i class="iconfont icon-header-mobile icon-right"></i>
+                </a>
+            </li>
+            
+            
+
+            
+            
+
+            
+            
+                
+                
+                
+                    
+                        
+                        
+                            
+                            <li class="menu-item layui-nav-item">
+                                <a href="/categories/%E6%9D%82%E6%96%87/">
+                                    杂文
+                                    <i class="iconfont icon-header-mobile icon-right"></i>
+                                </a>
+                            </li>
+                        
+                        
+                        
+                    
+                
+                    
+                        
+                        
+                            
+                            <li class="menu-item layui-nav-item">
+                                <a href="/categories/Python/">
+                                    Python
+                                    <i class="iconfont icon-header-mobile icon-right"></i>
+                                </a>
+                            </li>
+                        
+                        
+                        
+                    
+                
+                    
+                        
+                        
+                            
+                            <li class="menu-item layui-nav-item">
+                                <a href="/categories/Gis/">
+                                    Gis
+                                    <i class="iconfont icon-header-mobile icon-right"></i>
+                                </a>
+                            </li>
+                        
+                        
+                        
+                    
+                
+                    
+                        
+                        
+                            
+                            <li class="menu-item layui-nav-item">
+                                <a href="/categories/Asp/">
+                                    Asp
+                                    <i class="iconfont icon-header-mobile icon-right"></i>
+                                </a>
+                            </li>
+                        
+                        
+                        
+                    
+                
+                    
+                        
+                        
+                            
+                            <li class="menu-item layui-nav-item">
+                                <a href="/categories/%E8%BD%AF%E4%BB%B6/">
+                                    软件
+                                    <i class="iconfont icon-header-mobile icon-right"></i>
+                                </a>
+                            </li>
+                        
+                        
+                        
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                
+                <li class="more menu-item layui-nav-item">
+                    
+                    <a href="javascript:;" class="menu-more">
+                        更多分类
+                        <i class="iconfont icon-header-mobile icon-sidemenu"></i>
+                    </a>
+                    
+                    <dl class="layui-nav-child">
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                        
+                            
+                            
+                                
+                                
+                                    
+                                    <dd class="nav-child">
+                                        <a href="/categories/Java/">
+                                            Java
+                                            <i class="iconfont icon-header-mobile icon-right"></i>
+                                        </a>
+                                    </dd>
+                                
+                            
+                        
+                            
+                            
+                                
+                                
+                                    
+                                    <dd class="nav-child">
+                                        <a href="/categories/%E5%89%8D%E7%AB%AF/">
+                                            前端
+                                            <i class="iconfont icon-header-mobile icon-right"></i>
+                                        </a>
+                                    </dd>
+                                
+                            
+                        
+                            
+                            
+                                
+                                
+                                    
+                                    <dd class="nav-child">
+                                        <a href="/categories/Javascript/">
+                                            Javascript
+                                            <i class="iconfont icon-header-mobile icon-right"></i>
+                                        </a>
+                                    </dd>
+                                
+                            
+                        
+                            
+                            
+                                
+                                
+                                    
+                                    <dd class="nav-child">
+                                        <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">
+                                            数据库
+                                            <i class="iconfont icon-header-mobile icon-right"></i>
+                                        </a>
+                                    </dd>
+                                
+                            
+                        
+                            
+                            
+                                
+                                
+                                    
+                                    <dd class="nav-child">
+                                        <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
+                                            操作系统
+                                            <i class="iconfont icon-header-mobile icon-right"></i>
+                                        </a>
+                                    </dd>
+                                
+                            
+                        
+                            
+                            
+                                
+                                
+                                    
+                                    <dd class="nav-child">
+                                        <a href="/categories/Nodejs/">
+                                            Nodejs
+                                            <i class="iconfont icon-header-mobile icon-right"></i>
+                                        </a>
+                                    </dd>
+                                
+                            
+                        
+                            
+                            
+                                
+                                
+                                    
+                                    <dd class="nav-child">
+                                        <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/">
+                                            大数据
+                                            <i class="iconfont icon-header-mobile icon-right"></i>
+                                        </a>
+                                    </dd>
+                                
+                            
+                        
+                            
+                            
+                                
+                                
+                                    
+                                    <dd class="nav-child">
+                                        <a href="/categories/%E5%90%8E%E5%8F%B0%E6%9C%8D%E5%8A%A1/">
+                                            后台服务
+                                            <i class="iconfont icon-header-mobile icon-right"></i>
+                                        </a>
+                                    </dd>
+                                
+                            
+                        
+                            
+                            
+                                
+                                
+                                    
+                                    <dd class="nav-child">
+                                        <a href="/categories/%E9%9A%8F%E7%AC%94/">
+                                            随笔
+                                            <i class="iconfont icon-header-mobile icon-right"></i>
+                                        </a>
+                                    </dd>
+                                
+                            
+                        
+                            
+                            
+                                
+                                
+                                    
+                                    <dd class="nav-child">
+                                        <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">
+                                            机器学习
+                                            <i class="iconfont icon-header-mobile icon-right"></i>
+                                        </a>
+                                    </dd>
+                                
+                            
+                        
+                            
+                            
+                                
+                                
+                                    
+                                    <dd class="nav-child">
+                                        <a href="/categories/%E5%85%B6%E4%BB%96/">
+                                            其他
+                                            <i class="iconfont icon-header-mobile icon-right"></i>
+                                        </a>
+                                    </dd>
+                                
+                            
+                        
+                    </dl>
+                </li>
+            
+        </ul>
+    </nav>
+</div></div>
+    </header>
+    
+    <main class="main-content layui-fluid" id="main-content">
+      <div class="main-inner">
+        
+  <div class="layui-row layui-col-space15">
+    <div class="layui-col-xs12 layui-col-sm10 layui-col-sm-offset1 layui-col-md6 layui-col-md-offset2 layui-col-lg6 layui-col-lg-offset2">
+        <div class="container post_wrap">
+          <div class="post">
+            <div class="article">
+              <h1 class="title">技术研究之无人机图片定位</h1>
+              <div class="author">
+                <span class="tag">标签：
+                  
+
+                  
+                    无
+                  
+                </span>
+                <span class="tag">分类：
+                  
+
+                  
+                    未分类
+                  
+                </span>
+                <span class='tag'>
+                  创建时间：2026-01-08 07:09:01
+                </span>
+                <span class='tag'>
+                  更新时间：2026-05-27 11:42:29
+                </span>
+              </div>
+              <div class="content">
+                <html><head></head><body><h1 id="1-前言"><a href="#1-前言" class="headerlink" title="1.前言"></a>1.前言</h1><p>这里的目的就是，如何确定一个无人机照片中某个物体的地址位置。这就需要进行坐标变换了，将像素坐标，转为无人机镜头坐标，再转为世界坐标，这样就可以推算出一个图片中的某一个物体到底位于哪里了。</p>
+<div class="reference">参考文章:<br>【1】.<a target="_blank" rel="noopener" href="https://patents.google.com/patent/CN113850126A/zh">一种基于无人机的目标检测和三维定位方法和系统 </a></div>
+<h1 id="2-代码"><a href="#2-代码" class="headerlink" title="2.代码"></a>2.代码</h1><p>位置：经度、纬度、高度<br>姿态：偏航角(yaw)、俯仰角(pitch)、横滚角(roll)<br>相机标定参数：内参矩阵、畸变系数</p>
+<p>(1) 安装依赖</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install scipy</span><br></pre></td></tr></tbody></table></figure>
+
+<p>(2) 测试代码</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> scipy.spatial.transform <span class="keyword">import</span> Rotation <span class="keyword">as</span> R</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">PreciseGeoCalculator</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, camera_matrix, dist_coeffs</span>):</span><br><span class="line">        <span class="variable language_">self</span>.camera_matrix = camera_matrix</span><br><span class="line">        <span class="variable language_">self</span>.dist_coeffs = dist_coeffs</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">pixel_to_geo</span>(<span class="params">self, pixel_x, pixel_y, drone_pos, drone_attitude</span>):</span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        精确的像素坐标到地理坐标的转换</span></span><br><span class="line"><span class="string">        drone_pos: [longitude, latitude, altitude]</span></span><br><span class="line"><span class="string">        drone_attitude: [yaw, pitch, roll] (度)</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="comment"># 1. 畸变校正</span></span><br><span class="line">        undistorted_x, undistorted_y = <span class="variable language_">self</span>.undistort_pixel(pixel_x, pixel_y)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 2. 像素坐标转相机坐标（归一化平面）</span></span><br><span class="line">        x_cam, y_cam = <span class="variable language_">self</span>.pixel_to_camera(undistorted_x, undistorted_y)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 3. 相机坐标转无人机坐标</span></span><br><span class="line">        x_body, y_body, z_body = <span class="variable language_">self</span>.camera_to_body(x_cam, y_cam, drone_attitude)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 4. 无人机坐标转世界坐标（ENU坐标系）</span></span><br><span class="line">        x_enu, y_enu, z_enu = <span class="variable language_">self</span>.body_to_enu(x_body, y_body, z_body, drone_attitude)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 5. ENU坐标转地理坐标</span></span><br><span class="line">        target_lat, target_lon = <span class="variable language_">self</span>.enu_to_geo(</span><br><span class="line">            x_enu, y_enu, </span><br><span class="line">            drone_pos[<span class="number">1</span>], drone_pos[<span class="number">0</span>]  <span class="comment"># drone_lat, drone_lon</span></span><br><span class="line">        )</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> target_lat, target_lon</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">undistort_pixel</span>(<span class="params">self, pixel_x, pixel_y</span>):</span><br><span class="line">        <span class="string">"""畸变校正"""</span></span><br><span class="line">        point = np.array([[pixel_x, pixel_y]], dtype=np.float32)</span><br><span class="line">        undistorted = cv2.undistortPoints(</span><br><span class="line">            point, <span class="variable language_">self</span>.camera_matrix, <span class="variable language_">self</span>.dist_coeffs, P=<span class="variable language_">self</span>.camera_matrix</span><br><span class="line">        )</span><br><span class="line">        <span class="keyword">return</span> undistorted[<span class="number">0</span>][<span class="number">0</span>]</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">pixel_to_camera</span>(<span class="params">self, x, y</span>):</span><br><span class="line">        <span class="string">"""像素坐标转相机坐标系"""</span></span><br><span class="line">        fx, fy = <span class="variable language_">self</span>.camera_matrix[<span class="number">0</span>, <span class="number">0</span>], <span class="variable language_">self</span>.camera_matrix[<span class="number">1</span>, <span class="number">1</span>]</span><br><span class="line">        cx, cy = <span class="variable language_">self</span>.camera_matrix[<span class="number">0</span>, <span class="number">2</span>], <span class="variable language_">self</span>.camera_matrix[<span class="number">1</span>, <span class="number">2</span>]</span><br><span class="line">        </span><br><span class="line">        x_cam = (x - cx) / fx</span><br><span class="line">        y_cam = (y - cy) / fy</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> x_cam, y_cam</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">camera_to_body</span>(<span class="params">self, x_cam, y_cam, attitude</span>):</span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        相机坐标系 → 无人机机体坐标系</span></span><br><span class="line"><span class="string">        考虑相机安装角度（假设相机与机体坐标系对齐）</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="comment"># 将归一化坐标转换为3D射线（假设深度为1）</span></span><br><span class="line">        z_depth = <span class="number">1.0</span>  <span class="comment"># 单位深度</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 相机坐标系下的3D点</span></span><br><span class="line">        x_cam_3d = x_cam * z_depth</span><br><span class="line">        y_cam_3d = y_cam * z_depth</span><br><span class="line">        z_cam_3d = z_depth</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 如果相机有安装角度偏移，需要额外变换</span></span><br><span class="line">        <span class="comment"># 这里假设相机坐标系与机体坐标系对齐</span></span><br><span class="line">        x_body = x_cam_3d</span><br><span class="line">        y_body = y_cam_3d</span><br><span class="line">        z_body = z_cam_3d</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> x_body, y_body, z_body</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">body_to_enu</span>(<span class="params">self, x_body, y_body, z_body, attitude</span>):</span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        机体坐标系 → ENU坐标系 (East-North-Up)</span></span><br><span class="line"><span class="string">        使用完整的旋转矩阵变换</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        yaw, pitch, roll = np.radians(attitude)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 构建旋转矩阵（ZYX顺序，即偏航-俯仰-横滚）</span></span><br><span class="line">        <span class="comment"># 从机体坐标系到ENU坐标系的变换</span></span><br><span class="line">        cos_yaw, sin_yaw = np.cos(yaw), np.sin(yaw)</span><br><span class="line">        cos_pitch, sin_pitch = np.cos(pitch), np.sin(pitch)</span><br><span class="line">        cos_roll, sin_roll = np.cos(roll), np.sin(roll)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 旋转矩阵 R_enu_body</span></span><br><span class="line">        R = np.array([</span><br><span class="line">            [cos_yaw*cos_pitch, cos_yaw*sin_pitch*sin_roll - sin_yaw*cos_roll, cos_yaw*sin_pitch*cos_roll + sin_yaw*sin_roll],</span><br><span class="line">            [sin_yaw*cos_pitch, sin_yaw*sin_pitch*sin_roll + cos_yaw*cos_roll, sin_yaw*sin_pitch*cos_roll - cos_yaw*sin_roll],</span><br><span class="line">            [-sin_pitch,        cos_pitch*sin_roll,                           cos_pitch*cos_roll]</span><br><span class="line">        ])</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 坐标变换</span></span><br><span class="line">        body_vec = np.array([x_body, y_body, z_body])</span><br><span class="line">        enu_vec = R @ body_vec</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> enu_vec[<span class="number">0</span>], enu_vec[<span class="number">1</span>], enu_vec[<span class="number">2</span>]</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">enu_to_geo</span>(<span class="params">self, x_enu, y_enu, drone_lat, drone_lon</span>):</span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        ENU坐标转换为地理坐标</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="comment"># 地球半径（米）</span></span><br><span class="line">        R_earth = <span class="number">6378137.0</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 转换为经纬度偏移</span></span><br><span class="line">        lat_offset = y_enu / (R_earth * np.pi / <span class="number">180.0</span>)</span><br><span class="line">        lon_offset = x_enu / (R_earth * np.pi / <span class="number">180.0</span> * np.cos(np.radians(drone_lat)))</span><br><span class="line">        </span><br><span class="line">        target_lat = drone_lat + lat_offset</span><br><span class="line">        target_lon = drone_lon + lon_offset</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> target_lat, target_lon</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用示例</span></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    calibration_data = np.load(<span class="string">'camera_calibration.npz'</span>)</span><br><span class="line">    camera_matrix = calibration_data[<span class="string">'camera_matrix'</span>]</span><br><span class="line">    dist_coeffs = calibration_data[<span class="string">'dist_coeffs'</span>]</span><br><span class="line">    <span class="comment"># 使用示例</span></span><br><span class="line">    calculator = PreciseGeoCalculator(camera_matrix, dist_coeffs)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 无人机6自由度信息</span></span><br><span class="line">    drone_position = [<span class="number">116.4074</span>, <span class="number">39.9042</span>, <span class="number">100.0</span>]  <span class="comment"># [经度, 纬度, 高度]</span></span><br><span class="line">    drone_attitude = [<span class="number">45.0</span>, -<span class="number">10.0</span>, <span class="number">2.0</span>]          <span class="comment"># [偏航角, 俯仰角, 横滚角] (度)</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 目标在图像中的像素坐标</span></span><br><span class="line">    target_pixel = (<span class="number">960</span>, <span class="number">540</span>)  <span class="comment"># 图像中心</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 计算精确的地理坐标</span></span><br><span class="line">    target_lat, target_lon = calculator.pixel_to_geo(</span><br><span class="line">        target_pixel[<span class="number">0</span>], target_pixel[<span class="number">1</span>],</span><br><span class="line">        drone_position,</span><br><span class="line">        drone_attitude</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f"目标精确位置: 纬度 <span class="subst">{target_lat:<span class="number">.8</span>f}</span>, 经度 <span class="subst">{target_lon:<span class="number">.8</span>f}</span>"</span>)</span><br></pre></td></tr></tbody></table></figure>
+
+
+<h1 id="5-多帧融合"><a href="#5-多帧融合" class="headerlink" title="5.多帧融合"></a>5.多帧融合</h1><p>借鉴于空三解算中的共线方程的算法。</p>
+<div class="reference">参考文章:<br>【1】.<a target="_blank" rel="noopener" href="https://blog.csdn.net/zhaitianyong/article/details/111168657">三角测量计算点的三维坐标</a> 在双目视觉中，分左右相机，同时可以获得左视图和右视图，根据匹配的同名点和左右相机的投影矩阵，就可以计算出匹配同名点的世界坐标。<br>【2】.<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_42448643/article/details/141460664">DJI无人机影像地理坐标系校正</a> 代码的主要功能是将无人机拍摄的图像中的每个像素位置转换为地理坐标（经纬度），并计算图像的实际物理尺寸。<br>【3】.<a target="_blank" rel="noopener" href="https://www.cnblogs.com/AIBigTruth/p/17826604.html">坐标转换：从图像坐标到世界坐标的旅程</a><br>【4】.<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44592761/article/details/129040223">基于无人机正摄JPG图像实现像素GPS定位</a><br>【5】.<a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_55059996/article/details/150208372">无人机影像的像素坐标转大地坐标</a><br>【6】.<a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_55059996/article/details/150345497?spm=1001.2101.3001.6650.3&amp;utm_medium=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-3-150345497-blog-150208372.235%5Ev43%5Epc_blog_bottom_relevance_base5&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-3-150345497-blog-150208372.235%5Ev43%5Epc_blog_bottom_relevance_base5&amp;utm_relevant_index=6">无人机像素坐标转地理坐标——实操（附数据+代码）</a> 读取照片，获取地物点的像素坐标<br>【7】.<a target="_blank" rel="noopener" href="https://www.cnblogs.com/RSran/p/17549764.html">【Python&amp;RS】基于GDAL给无人机图片定义坐标系</a> 有了这个想法后就要行动起来，定义一个坐标系，一般需要两个点。一是需要投影坐标系的参数，二就是仿射地理变换参数。投影坐标系非常容易得到，投影坐标系的参数GDAL有内置的一部分，当然也可以读取已有数据的坐标系。但仿射地理变换参数就比较麻烦了，我印象中定义仿射地理变换参数时只能通过图片左上角的点就是设置，不像ENVI可以任意选点。ENVI方便很多，有兴趣可以查看【RS】基于ENVI给图片/影像定义坐标系。所以我们只要能解决仿射地理变换参数就可以解决图片定义坐标系的问题。<br>【8】.<a target="_blank" rel="noopener" href="https://www.reddit.com/r/photogrammetry/comments/wgccia/is_it_possible_to_calculate_world_coordinates_of/?tl=zh-hans">在给定像素在照片中的像素坐标和相机校准值的情况下，是否可以计算像素的世界坐标？</a><br>【9】.<a target="_blank" rel="noopener" href="https://repair.dji.com/help/content?customId=01700004761&amp;spaceId=17&amp;re=CN&amp;lang=zh-CN&amp;documentType&amp;paperDocType=ARTICLE">大疆智图重建任务导出常见问题</a> 由于策略改变，大疆智图 V3.0.0版本三维重建的无畸变影像 undistort 文件夹存放在 temp 文件夹里，该文件夹存储计算过程文件，导出任务压缩包时 temp 文件不会跟随导出；如果您需要使用无畸变影像，直接拷贝备份 undistort 文件夹即可；<br>【10】.<a target="_blank" rel="noopener" href="https://blog.csdn.net/w2492602718/article/details/135767163">C++无人机摄影测量——OMEGA、Phi、kappa转换为YAW，Pitch，Roll</a></div>
+<h1 id="6-自由网平差"><a href="#6-自由网平差" class="headerlink" title="6.自由网平差"></a>6.自由网平差</h1><p>从约束网平差的结果文件（如你之前的ba_calib_params.json）中提取以下关键参数，这些是 “通用模型” 的核心，无需重复平差：<br>参数类型    具体内容    来源    作用<br>相机内参    fx/fy/cx/cy/k1/k2/k3/p1/p2    约束网平差的camera字段    像素畸变校正、投影计算<br>系统校准参数    姿态偏移（yaw/pitch/roll_offset）、安装角（mount_yaw/pitch/roll）    约束网平差的system_errors字段    修正新照片的姿态角，消除系统误差<br>测区基准    ENU 参考原点（ref_lat/ref_lon/ref_alt）、缩放因子（scale=cos (ref_lat)*R_earth）    约束网平差的 ENU 转换参数    将计算出的 ENU 坐标转为大地经纬度<br>全局偏移    global_dx/global_dy/global_dz    约束网平差的global_offset字段    修正新照片的位置坐标，匹配大地基准</p>
+<p>（1）相机模型可以在空三报告中得到<br>（2）系统校准，主要通过 BlocksExchangeUndistortAT.xml 中的 Rotation 以及原始图片中 姿态教得到，相机安装角误差、姿态测量误差<br>（3）测区基准，通过 sfm_geo_desc.json 文件得到<br>（4）全家偏移量，主要通过 BlocksExchangeUndistortAT.xml 中的  Center 以及原始图片中保存的 pos 信息进行系统校准得到。 </p>
+<p>这是豆包给的思路，看起来没有问题，一切都没有问题，但是我用了很多时间，去思考和尝试这个东西，最后我发现，这事不能成功的，因为无法通过一次平差，获取一个统一的公式，如果可以的话，那就不用每次都进行空三解算平差了。</p>
+<div class="reference">参考文章:<br>【1】.<a target="_blank" rel="noopener" href="https://sdk-forum.dji.net/hc/zh-cn/articles/360047520873-%E5%9B%9B%E5%85%83%E6%95%B0%E4%B8%8E%E6%AC%A7%E6%8B%89%E8%A7%92%E7%9A%84%E8%BD%AC%E6%8D%A2">Omega (X)-Phi (Y)-Kappa (Z)</a><br>【2】.<a target="_blank" rel="noopener" href="https://html.rhhz.net/GDGYDXXB/html/20170606.htm"> 基于BA的改进视觉/惯性融合定位算法 </a> 这是一篇基于 光束平差法(bundle adjustment)进行 局部优化的计算目标位置的方法。<br>【3】.<a target="_blank" rel="noopener" href="https://patents.google.com/patent/CN116824070A/zh">一种基于深度图像的实时三维重建方法及系统 </a><br>【4】.<a target="_blank" rel="noopener" href="https://gaoyichao.com/Xiaotu/?book=ORB_SLAM%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB&amp;title=%E5%B1%80%E9%83%A8BA%E4%BC%98%E5%8C%96">局部BA优化</a></div></body></html>
+              </div>
+            </div>
+          </div>
+          <div class='post-footer'>
+            <div>**本文已结束，感谢您的观看**</div>
+            <div class="btn btn-pay">鼓励一下</div>
+          </div>
+          
+            <div class="page">
+              
+              <section class="past-wrap">
+                <section class="past">
+                <p>往期推荐</p>
+                </section>
+              </section>
+              <div class="post-nav">
+                <div class="post-nav-next post-nav-item">
+                  
+                    <a href="/posts/e1517505.html" rel="next" title="技术研究之智能摆拍航线">
+                      <i class="iconfont icon-prev"></i> 技术研究之智能摆拍航线
+                    </a>
+                  
+                </div>
+
+                <span class="post-nav-divider"></span>
+
+                <div class="post-nav-prev post-nav-item">
+                  
+                    <a href="/posts/b31999f5.html" rel="prev" title="技术研究之断点续传">
+                      技术研究之断点续传 <i class="iconfont icon-next"></i>
+                    </a>
+                  
+                </div>
+              </div>
+            </div>
+          
+          
+ <div class="comments" id="comments">
+    <div id="disqus_thread">
+        <noscript>
+            不支持Javascript,那你还上啥网啊。
+            <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript"></a>
+        </noscript>
+    </div>
+</div>
+
+      </div>
+    </div>
+
+
+    <div class="layui-col-md2 layui-col-lg2 layui-col-sm10 layui-col-xs12 catalogue-wrap">
+        
+
+<div class="catalogue-content">
+    <div class="title">文章目录</div>
+    <div class="toc-content">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">1.前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-%E4%BB%A3%E7%A0%81"><span class="toc-number">2.</span> <span class="toc-text">2.代码</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-%E5%A4%9A%E5%B8%A7%E8%9E%8D%E5%90%88"><span class="toc-number">3.</span> <span class="toc-text">5.多帧融合</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6-%E8%87%AA%E7%94%B1%E7%BD%91%E5%B9%B3%E5%B7%AE"><span class="toc-number">4.</span> <span class="toc-text">6.自由网平差</span></a></li></ol>
+    </div>
+</div>
+
+
+        <div class="sidecontent">
+
+    
+
+    <div class="side-panel side-sponsor">
+        <div class="side-title one">小额赞助</div>
+        <div class="side-content-wrap">
+            <div class="side-content">
+                <div class="heading">本人提供免费与付费咨询服务，感谢您的支持！赞助请发邮件（ititchuan@gmail.com）通知，方便公布您的善意！</div>
+                <div class="content">
+                    <img src="/images/pay.png" title="小额赞助"/>
+                </div>
+                
+                
+                <div class="donor_content">
+                    
+                        
+                        <div class="donor-item">
+                            <span class="name">**光</span>
+                            <span class="money">3.01 元</span>
+                        </div>
+                    
+                        
+                        <div class="donor-item">
+                            <span class="name">Sun</span>
+                            <span class="money">3.00 元</span>
+                        </div>
+                    
+                        
+                        <div class="donor-item">
+                            <span class="name">ititchuan</span>
+                            <span class="money">3.00 元</span>
+                        </div>
+                    
+                    <div class="donor_footer">
+                        <span>捐赠者名单</span>
+                        <span class="total">合计：9.01 元</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="side-ad side-panel">
+        <div class="side-title two">微信公众号</div>
+        <div class="side-content-wrap">
+            <div class="side-content">
+                <img src="/images/wechat.png" title="公众号"/>
+            </div>
+        </div>
+    </div>
+
+    <div class="side-ad side-panel">
+        <div class="side-title one">广告位</div>
+        <div class="side-content-wrap">
+            <div class="side-content">
+                <div class="heading">诚心邀请广大金主爸爸洽谈合作</div>
+                <div class="detail">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="side-ask side-panel">
+        
+        <div class="side-title two">每日一省</div>
+        <div class="side-content-wrap">
+            <div class="side-content">
+                <div class="heading">isNaN 和 Number.isNaN 函数的区别？</div>
+                <div class="detail">
+                    
+                        <p>1.函数 isNaN 接收参数后，会尝试将这个参数转换为数值，任何不能被转换为数值的的值都会返回 true，因此非数字值传入也会返回 true ，会影响 NaN 的判断。</p>
+                    
+                        <p>2.函数 Number.isNaN 会首先判断传入参数是否为数字，如果是数字再继续判断是否为 NaN ，不会进行数据类型的转换，这种方法对于 NaN 的判断更为准确。</p>
+                    
+                </div>
+            </div>
+            <div class="side-footer">
+                <span class="side-footer-item time">2021-04-07</span>
+                
+                    <span class="side-footer-item side-button down" title="查看答案">
+                        <i class="iconfont icon-expansion"></i>
+                    </span>
+                
+                
+                    <a class="side-footer-item side-button answer-url" href="https://juejin.cn/post/6940945178899251230"
+                    target="_blank">链接地址</a>
+                
+            </div>
+        </div>
+    </div>
+    <div class="side-ask side-panel">
+        
+        <div class="side-title three">每日二省</div>
+        <div class="side-content-wrap">
+            <div class="side-content">
+                <div class="heading">为什么0.1+0.2 ! == 0.3，如何让其相等?</div>
+                <div class="detail">
+                     
+                        <p>一个直接的解决方法就是设置一个误差范围，通常称为“机器精度”。对JavaScript来说，这个值通常为2-52，在ES6中，提供了Number.EPSILON属性，而它的值就是2-52，只要判断0.1+0.2-0.3是否小于Number.EPSILON，如果小于，就可以判断为0.1+0.2 ===0.3。</p>
+                    
+                </div>
+            </div>
+            <div class="side-footer">
+                <span class="side-footer-item time">2021-04-07</span>
+                
+                    <span class="side-footer-item side-button down" title="查看答案">
+                        <i class="iconfont icon-expansion"></i>
+                    </span>
+                
+                
+                    <a class="side-footer-item side-button answer-url" href="https://juejin.cn/post/6940945178899251230#heading-8"
+                    target="_blank">链接地址</a>
+                
+            </div>
+        </div>
+    </div>
+    <div class="side-ask side-panel">
+        
+        <div class="side-title three">每日三省</div>
+        <div class="side-content-wrap">
+            <div class="side-content">
+                <div class="heading">== 操作符的强制类型转换规则？</div>
+                <div class="detail">
+                     
+                        <p>1.首先会判断两者类型是否**相同，**相同的话就比较两者的大小。</p>
+                    
+                        <p>2.类型不相同的话，就会进行类型转换。</p>
+                    
+                        <p>3.会先判断是否在对比 null 和 undefined，是的话就会返回 true。</p>
+                    
+                        <p>4.判断两者类型是否为 string 和 number，是的话就会将字符串转换为 number。</p>
+                    
+                        <p>5.判断其中一方是否为 boolean，是的话就会把 boolean 转为 number 再进行判断。</p>
+                    
+                        <p>6.判断其中一方是否为 object 且另一方为 string、number 或者 symbol，是的话就会把 object 转为原始类型再进行判断。</p>
+                    
+                </div>
+            </div>
+            <div class="side-footer">
+                <span class="side-footer-item time">2021-04-07</span>
+                
+                    <span class="side-footer-item side-button down" title="查看答案">
+                        <i class="iconfont icon-expansion"></i>
+                    </span>
+                
+                
+                    <a class="side-footer-item side-button answer-url" href="https://juejin.cn/post/6940945178899251230#heading-12"
+                    target="_blank">链接地址</a>
+                
+            </div>
+        </div>
+    </div>
+    <div class="side-ask side-panel">
+        
+        <div class="side-title two">每日英语</div>
+        <div class="side-content-wrap">
+            <div class="side-content">
+                <div class="heading">Happiness is time precipitation, smile is the lonely sad.</div>
+                <div class="detail">幸福是年华的沉淀，微笑是寂寞的悲伤。</div>
+            </div>
+            <div class="side-footer">
+                <span class="side-footer-item time">2016</span>
+                
+                    <span class="side-footer-item side-button down" title="查看翻译">
+                        <i class="iconfont icon-expansion"></i>
+                    </span>
+                
+                <span class="side-footer-item author">——— 美文</span>
+            </div>
+        </div>
+    </div>
+
+</div>
+    </div>
+
+  </div>
+  <div class="side-tool">
+    <div class="side-icon-wrap">
+        <i class="iconfont icon-sidemenu"></i>
+    </div>
+    <ul class="side-tool-content">
+        <li title="回到顶部" class="back-to-top side-tool-item">
+            <a class="function-button"><i class="iconfont icon-backtop"></i></a>
+        </li> 
+        <li title="分享文章" class="side-share side-tool-item">
+            <a class="function-button"><i class="iconfont icon-share"></i></a>
+            <div class="iShare iShare-content"></div>
+        </li>
+        <li title="喜欢文章" class="side-like side-tool-item">
+            <a class="function-button"><i class="iconfont icon-like"></i></a>
+        </li>
+         <li class="side-close" title="关闭侧边栏">
+            <a class="function-button"><i class="iconfont icon-close"></i></a>
+        </li>
+    </ul>
+</div>
+
+      </div>
+    </main>   
+    
+    <footer id="footer" class="footer layui-fluid">
+      <div class="layui-row">
+        <div class="container footer-inner">
+          <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="footer-col">
+  <div>温馨提示</div>
+  <div><a href="/about" target="_self">关于作者</a></div>
+  <div><a href="/archives">博客归档</a></div>
+  <div>
+    <span id="busuanzi_container_site_uv">
+      访客数<span id="busuanzi_value_site_uv"></span>人次
+    </span>
+  </div>
+</div>
+<div class="footer-col">
+  <div>友情链接</div>
+  
+  
+  
+  
+    
+        <div><a href="https://malagis.com" target="_blank">麻辣GIS</a></div>
+    
+  
+    
+        <div><a href="https://www.giserdqy.com" target="_blank">GIS开发者</a></div>
+    
+  
+    
+        <div><a href="https://earth.nullschool.net/zh-cn/" target="_blank">earth.nullschool</a></div>
+    
+  
+    
+        <div><a href="https://www.gisclouder.com/" target="_blank">码上GIS实现的热力图</a></div>
+    
+  
+    
+        <div><a href="http://www.cnblogs.com/naaoveGIS/" target="_blank">李晓辉的博客园</a></div>
+    
+  
+    
+        
+          <div><a href="/links">更多</a></div>
+          
+        
+    
+  
+    
+        
+    
+  
+    
+        
+    
+  
+    
+        
+    
+  
+  <div class="chain-msg">**注意：以上网站都没给钱**</div>
+</div>
+<div class="footer-col">
+  <div>精彩推荐</div>
+  
+    <div><a href="/study">励志</a></div>
+  
+    <div><a href="/anime">动漫</a></div>
+  
+    <div><a href="/movie">电影</a></div>
+  
+    <div><a href="/tv">电视</a></div>
+  
+    <div><a href="/book">书籍</a></div>
+  
+</div>
+<div class="footer-col">
+  <div>开源项目</div>
+  
+    <div><a href="/"></a></div>
+  
+</div>
+          
+        </div>
+      </div>
+    </footer>
+
+    
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+    
+        
+            
+            
+            <script type="text/javascript" src="/lib/layui/layui.js"></script>
+        
+    
+        
+    
+
+    
+        
+            
+            
+                
+            
+            <script type="text/javascript" src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js"></script>
+        
+    
+
+    
+        
+            
+            
+            <script type="text/javascript" src="/lib/jquery.actual.min.js"></script>
+        
+    
+
+
+    
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v="></script>
+
+
+
+    
+      <script type="text/javascript" src="https://cdn.jsdelivr.net/algoliasearch/3/algoliasearchLite.min.js"></script>
+<script type="text/javascript">
+  var client = algoliasearch('DM9LMZOGZE', '1c2739694b8acb4c4edab8ccb098d166');
+  var index = client.initIndex('ititchuan');
+  $(document).ready(function(){
+    var $search=$(".header-wrap");
+    var $searchbtn= $search.find(".find");
+    var $ipt=$search.find(".search-ipt");
+    var $resultClear=$search.find(".clear");
+    var $result=$search.find(".result");
+    // 加入layui
+    layui.use('layer', function(){
+      var layer = layui.layer;
+      // 搜索按钮点击
+      $searchbtn.on("click",function(){
+        var text=$ipt.val();
+        var $this=$(this);
+        var $resultContent=$result.find(".result-content");
+        if(text){
+          var loadDialog=layer.load();
+          if(!$this.hasClass("disabled")){
+            $this.addClass("disabled");
+            index.search(text, (err, { hits } = {}) => {
+              layer.close(loadDialog); 
+
+              $this.removeClass("disabled");
+              var resultHtml="";
+              // 命中
+              if(hits.length>0){
+                var count=hits.length;
+                for(var i=0;i<count;i++){
+                  var h=hits[i];
+                  //根据返回值中_highlightResult来判断显示的内容。
+                  var content=h.contentStripTruncate;
+                  var _highlight=h._highlightResult;
+
+                  var resultC="";
+                  var hitType=""; // 命中的类型
+                  //标题命中
+                  if(_highlight.title&&!resultC){  
+                    if(_highlight.title.matchLevel&&_highlight.title.matchLevel!='none'){
+                      resultC=_highlight.title.value;
+                      hitType="title";
+                    }
+                  }
+                  //分类命中
+                  if(_highlight.categories&&!resultC){ 
+                    var arr=_highlight.categories;
+                    if(arr instanceof Array){
+                      var countTemp=arr.length;
+                      for(var j=0;j<countTemp;j++){
+                        var temp=arr[j];
+                        if(temp.matchLevel&&temp.matchLevel!='none'){
+                          resultC=temp.value;
+                          hitType="categories";
+                        }
+                      }
+                    }else{
+                      if(arr.matchLevel&&arr.matchLevel!='none'){
+                        resultC=arr.value;
+                        hitType="categories";
+                      }
+                    }
+                  }
+
+                  //标签命中
+                  if(_highlight.tags&&!resultC){ 
+                    var arr=_highlight.tags;
+                    if(arr instanceof Array){
+                      var countTemp=arr.length;
+                      for(var j=0;j<countTemp;j++){
+                        var temp=arr[j];
+                        if(temp.matchLevel&&temp.matchLevel!='none'){
+                          resultC=temp.value;
+                          hitType="tags";
+                        }
+                      }
+                    }else{
+                      if(arr.matchLevel&&arr.matchLevel!='none'){
+                        resultC=arr.value;
+                        hitType="tags";
+                      }
+                    }
+                  }
+
+                  // 内容命中
+                  if(!resultC){ 
+                    resultC=_highlight.contentStripTruncate.value;
+                    hitType="contentStripTruncate";
+                  }
+
+                  //如果内容过长，则截断
+                  if(resultC.length>50){
+                    var index=resultC.indexOf('<em>');
+                    var blockIndex=10;
+                    if(index>=blockIndex){
+                      index=index-blockIndex;
+                    }else{
+                      index=0;
+                    }
+                    resultC="..."+resultC.substring(index,index+20+blockIndex)+"...";
+                  }
+                  switch(hitType){
+                    case "title":
+                      resultC="标题："+resultC;
+                      break;
+                    case "categories":
+                      resultC="分类："+resultC;
+                      resultC+=" ("+h.contentStripTruncate.substring(0,40)+"...)";
+                      break;
+                    case "tags":
+                      resultC="标签："+resultC;
+                      resultC+=" ("+h.contentStripTruncate.substring(0,40)+"...)";
+                      break;
+                    case "contentStripTruncate":
+                      resultC="内容："+resultC;
+                      break;
+                  }
+
+                  resultHtml+='<li class="result-item" title="'+content+'"><a href="'+h.permalink+'">'+resultC+'</a></li>';
+                }
+                $(resultHtml).appendTo($resultContent.empty());
+                $result.show();
+                $resultClear.show();
+              }else{
+                var resultHtml='<li class="result-item" title="未找到相关内容"><a>未找到相关内容</a></li>';
+                $(resultHtml).appendTo($resultContent.empty());
+                $result.show();
+                $resultClear.show();
+              }
+            });
+          }
+        }else{
+          layer.msg("请输入搜索内容");
+        }
+      });
+      // 删除输入内容
+      $resultClear.on("click",function(){
+        $result.hide();
+        $resultClear.hide();
+        //清空输入内容
+        $ipt.val("");
+      });
+      // 监听确定事件
+      $ipt.keydown(function(e){
+        if(e.keyCode==13){
+          $searchbtn.click();
+        }
+      });
+    });              
+  
+  });
+</script>
+    
+
+    
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.6/dist/jquery.fancybox.min.js"></script>
+<script src="/js/src/post/post.js">></script>
+
+  
+
+  <script type="text/javascript">
+    var disqus_config = function () {
+      this.page.url = 'https://ititchuan.github.io/posts/97643638.html';
+      this.page.identifier = 'posts/97643638.html';
+      this.page.title = '技术研究之无人机图片定位';
+      };
+    // 加载评论内容
+    function loadComments () {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://https-bibichuan-github-io.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+
+      // 隐藏相关文章
+      s.onload = function () {
+        var relatedCommon=$('#comments #disqus_recommendations');
+        if(relatedCommon){
+          relatedCommon.hide();
+        }
+
+      }
+    }
+    function scrollFunction(){
+      // offsetTop may changes because of manually resizing browser window or lazy loading images.
+          var offsetTop = $('#comments').offset().top - $(window).height();
+          var scrollTop = $(window).scrollTop();
+
+          // pre-load comments a bit? (margin or anything else)
+          if (offsetTop - scrollTop < 60) {
+            $(window).off('scroll',scrollFunction);
+            loadComments();
+          }
+    }
+    $(function () {
+      if($("#comments").length<=0){
+        return;
+      }
+      var offsetTop = $('#comments').offset().top - $(window).height();
+      if (offsetTop <= 0) {
+        // load directly when there's no a scrollbar
+        loadComments();
+      } else {
+        $(window).on('scroll', scrollFunction);
+      }
+    });
+  </script>
+
+
+
+<script src="/lib/share/iShare.js"></script>
+<script type="text/javascript">
+var iSharel=(new iShare({container:'.iShare-content',config:{
+		title: '这里有精彩的内容，你确定不过来看看吗？链接标题：技术研究之无人机图片定位 链接地址:https://ititchuan.github.io/posts/97643638.html  |(复制此地址在浏览器中打开)——bibichaun出品。',
+		description: '技术研究之无人机图片定位',
+		url: 'https://ititchuan.github.io/posts/97643638.html',
+		isAbroad: false,
+		isTitle: true,
+		initialized: true,
+		WXoptions:{
+			evenType: 'click',
+			isTitleVisibility: true,
+			title: '技术研究之无人机图片定位',
+			isTipVisibility: true,
+			tip: '技术研究之无人机图片定位',
+			qrcodeW: '120',
+			qrcodeH: '120',
+			qrcodeFgc: '#4a148c',
+      bgcolor: '#2BAD13'
+		}
+	}}));
+</script>
+
+
+</body>
+</html>
